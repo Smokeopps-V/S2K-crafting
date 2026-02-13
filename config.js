@@ -144,7 +144,7 @@ const CONFIG_ITEMS = [
     blueprintRequired: true,
     xp: 15,
     stopLevel: 60,
-    materials: { plastic: 520, alum: 220, scrap: 150, titanium: 60 }
+    materials: { pistolSlide: 1, gunTrigger: 1, pistolClip: 1, pistolGrip: 1, titanium: 60 }
   },
   {
     name: "Tec 9",
@@ -153,7 +153,16 @@ const CONFIG_ITEMS = [
     blueprintRequired: true,
     xp: 15,
     stopLevel: 95,
-    materials: { plastic: 890, alum: 250, scrap: 165, titanium: 150 }
+    materials: {
+      pistolSlide: 1,
+      gunTrigger: 1,
+      pistolClip: 1,
+      pistolGrip: 1,
+      plastic: 370,
+      aluminium: 30,
+      scrap: 15,
+      titanium: 150
+    }
   },
   {
     name: "Heavy Revolver",
@@ -162,7 +171,7 @@ const CONFIG_ITEMS = [
     blueprintRequired: true,
     xp: 15,
     stopLevel: 67.5,
-    materials: { plastic: 520, alum: 220, scrap: 150, titanium: 60 }
+    materials: { pistolSlide: 1, gunTrigger: 1, pistolClip: 1, pistolGrip: 1, titanium: 60 }
   },
   {
     name: "AP Pistol",
@@ -171,7 +180,15 @@ const CONFIG_ITEMS = [
     blueprintRequired: true,
     xp: 0,
     stopLevel: 0,
-    materials: { titanium: 225, plastic: 770, alum: 220, scrap: 150, steel: 250 }
+    materials: {
+      pistolSlide: 1,
+      gunTrigger: 1,
+      pistolClip: 1,
+      pistolGrip: 1,
+      titanium: 225,
+      plastic: 250,
+      steel: 250
+    }
   },
   {
     name: "MPX",
@@ -773,4 +790,3 @@ const CONFIG_ITEMS = [
     materials: { plastic: 130, scrap: 30, aluminium: 55 }
   }
 ];
-
