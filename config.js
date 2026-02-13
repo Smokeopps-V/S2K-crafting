@@ -57,7 +57,7 @@ const CONFIG_ITEMS = [
     name: "Shotgun Suppressor",
     category: "attachments",
     levelRequired: 25,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 20,
     stopLevel: 30,
     materials: { plastic: 55, scrap: 205, rubber: 85, steel: 180, titanium: 40 }
@@ -66,7 +66,7 @@ const CONFIG_ITEMS = [
     name: "SMG Suppressor",
     category: "attachments",
     levelRequired: 25,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 20,
     stopLevel: 30,
     materials: { plastic: 55, scrap: 205, rubber: 85, steel: 180, titanium: 40 }
@@ -75,7 +75,7 @@ const CONFIG_ITEMS = [
     name: "Pistol Suppressor",
     category: "attachments",
     levelRequired: 29,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 10,
     stopLevel: 35,
     materials: { scrap: 150, rubber: 55, steel: 150, titanium: 15 }
@@ -84,7 +84,7 @@ const CONFIG_ITEMS = [
     name: "Sub Extended Mag",
     category: "attachments",
     levelRequired: 22,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 15,
     stopLevel: 25,
     materials: { plastic: 75, alum: 115, scrap: 115, titanium: 5 }
@@ -93,7 +93,7 @@ const CONFIG_ITEMS = [
     name: "Pistol Extended Mag",
     category: "attachments",
     levelRequired: 22,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 10,
     stopLevel: 28,
     materials: { plastic: 40, alum: 75, scrap: 75, titanium: 10 }
@@ -102,7 +102,7 @@ const CONFIG_ITEMS = [
     name: "Shotgun Extended Mag",
     category: "attachments",
     levelRequired: 32,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 10,
     stopLevel: 60,
     materials: { plastic: 115, alum: 150, scrap: 150, titanium: 10 }
@@ -111,7 +111,7 @@ const CONFIG_ITEMS = [
     name: "Pistol Drum Mag",
     category: "attachments",
     levelRequired: 20,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 10,
     stopLevel: 60,
     materials: { plastic: 75, alum: 115, scrap: 115, titanium: 5 }
@@ -120,7 +120,7 @@ const CONFIG_ITEMS = [
     name: "Sub Drum Mag",
     category: "attachments",
     levelRequired: 25,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 15,
     stopLevel: 60,
     materials: { plastic: 115, alum: 150, scrap: 150, titanium: 10 }
@@ -138,7 +138,7 @@ const CONFIG_ITEMS = [
     name: "Desert Eagle",
     category: "weapons",
     levelRequired: 25,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 15,
     stopLevel: 60,
     materials: { plastic: 520, alum: 220, scrap: 150, titanium: 60 }
@@ -147,7 +147,7 @@ const CONFIG_ITEMS = [
     name: "Tec 9",
     category: "weapons",
     levelRequired: 25,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 15,
     stopLevel: 95,
     materials: { plastic: 890, alum: 250, scrap: 165, titanium: 150 }
@@ -156,7 +156,7 @@ const CONFIG_ITEMS = [
     name: "Heavy Revolver",
     category: "weapons",
     levelRequired: 35,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 15,
     stopLevel: 67.5,
     materials: { plastic: 520, alum: 220, scrap: 150, titanium: 60 }
@@ -174,7 +174,7 @@ const CONFIG_ITEMS = [
     name: "MPX",
     category: "weapons",
     levelRequired: 35,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 20,
     stopLevel: 85,
     materials: { plastic: 370, alum: 100, scrap: 55, titanium: 115, smgParts: 1 }
@@ -183,7 +183,7 @@ const CONFIG_ITEMS = [
     name: "Mac-10",
     category: "weapons",
     levelRequired: 53,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 25,
     stopLevel: 92,
     materials: { plastic: 370, alum: 100, scrap: 55, titanium: 150, smgParts: 1 }
@@ -192,7 +192,7 @@ const CONFIG_ITEMS = [
     name: "UMP",
     category: "weapons",
     levelRequired: 0,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 25,
     stopLevel: 92,
     materials: { plastic: 370, alum: 100, scrap: 55, titanium: 190, smgParts: 1 }
@@ -201,7 +201,7 @@ const CONFIG_ITEMS = [
     name: "Super Shorty",
     category: "weapons",
     levelRequired: 35,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 25,
     stopLevel: 82.5,
     materials: { plastic: 370, alum: 100, scrap: 55, titanium: 120, shotgunParts: 1 }
@@ -210,7 +210,7 @@ const CONFIG_ITEMS = [
     name: "Vepr",
     category: "weapons",
     levelRequired: 35,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 25,
     stopLevel: 85,
     materials: { plastic: 370, alum: 100, scrap: 55, titanium: 205, shotgunParts: 1 }
@@ -219,7 +219,7 @@ const CONFIG_ITEMS = [
     name: "Switchblade",
     category: "tools",
     levelRequired: 0,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 5,
     stopLevel: 6000,
     materials: { plastic: 55, alum: 30, scrap: 75, titanium: 5 }
@@ -228,7 +228,7 @@ const CONFIG_ITEMS = [
     name: "Scale",
     category: "tools",
     levelRequired: 0,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 1,
     stopLevel: 5,
     materials: { plastic: 40, scrap: 15, elect: 10, glass: 15, controlChip: 1, powerSupply: 1, circuitBoard: 1 }
@@ -237,7 +237,7 @@ const CONFIG_ITEMS = [
     name: "Advance Lockpick",
     category: "tools",
     levelRequired: 0,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 3,
     stopLevel: 10,
     materials: { plastic: 30, alum: 30, scrap: 30 }
@@ -255,7 +255,7 @@ const CONFIG_ITEMS = [
     name: "Fake Plate",
     category: "tools",
     levelRequired: 2,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 15,
     stopLevel: 60,
     materials: { plastic: 150, alum: 75, scrap: 225, steel: 75 }
@@ -493,7 +493,7 @@ const CONFIG_ITEMS = [
     name: "Thermite",
     category: "tools",
     levelRequired: 40,
-    blueprintRequired: false,
+    blueprintRequired: true,
     xp: 1,
     stopLevel: 60,
     materials: { thermitePowder: 10 }

@@ -1,6 +1,5 @@
 const itemList = document.getElementById("itemList");
 const searchInput = document.getElementById("search");
-const categorySelect = document.getElementById("category");
 const quickFilterButtons = Array.from(document.querySelectorAll(".chip"));
 const resultCount = document.getElementById("resultCount");
 const popupElement = document.getElementById("popup");
@@ -11,6 +10,11 @@ const popupMaterials = document.getElementById("popupMaterials");
 const closePopupBtn = document.getElementById("closePopupBtn");
 
 let lastFocusedCard = null;
+let currentCategory = "all";
+
+function hasRequiredDom() {
+  return Boolean(itemList && searchInput && resultCount);
+}
 
 function formatMaterialLabel(materialKey) {
   return materialKey
@@ -29,6 +33,10 @@ function getItems() {
 }
 
 function renderEmptyState(message) {
+  if (!itemList) {
+    return;
+  }
+
   const emptyState = document.createElement("div");
   emptyState.className = "empty-state";
   emptyState.textContent = message;
@@ -44,6 +52,10 @@ function getCategoryLabel(category) {
 }
 
 function updateResultCount(count, category) {
+  if (!resultCount) {
+    return;
+  }
+
   const itemLabel = count === 1 ? "item" : "items";
   resultCount.textContent = `${count} ${itemLabel} shown in ${getCategoryLabel(category)}`;
 }
@@ -57,8 +69,13 @@ function setActiveQuickFilter(category) {
 }
 
 function renderItems() {
+  if (!hasRequiredDom()) {
+    console.error("Missing required DOM nodes for rendering.");
+    return;
+  }
+
   const searchValue = searchInput.value.trim().toLowerCase();
-  const selectedCategory = categorySelect.value;
+  const selectedCategory = currentCategory;
   const items = getItems();
 
   itemList.innerHTML = "";
@@ -102,6 +119,10 @@ function renderItems() {
 }
 
 function openPopup(item) {
+  if (!popupElement || !popupTitle || !popupLevel || !popupBP || !popupMaterials || !closePopupBtn) {
+    return;
+  }
+
   popupTitle.textContent = item.name;
   popupLevel.textContent = `Level ${item.levelRequired}+`;
   popupBP.textContent = item.blueprintRequired ? "Blueprint required" : "No blueprint needed";
@@ -147,6 +168,10 @@ function openPopup(item) {
 }
 
 function closePopup() {
+  if (!popupElement) {
+    return;
+  }
+
   popupElement.classList.add("hidden");
   document.body.classList.remove("no-scroll");
 
@@ -155,38 +180,45 @@ function closePopup() {
   }
 }
 
-itemList.addEventListener("click", event => {
-  const button = event.target.closest(".item-card");
-  if (!button) {
-    return;
-  }
+if (itemList) {
+  itemList.addEventListener("click", event => {
+    const button = event.target.closest(".item-card");
+    if (!button) {
+      return;
+    }
 
-  const currentItems = JSON.parse(itemList.dataset.currentItems || "[]");
-  const selectedItem = currentItems[Number(button.dataset.itemIndex)];
-  lastFocusedCard = button;
+    const currentItems = JSON.parse(itemList.dataset.currentItems || "[]");
+    const selectedItem = currentItems[Number(button.dataset.itemIndex)];
+    lastFocusedCard = button;
 
-  if (selectedItem) {
-    openPopup(selectedItem);
-  }
-});
+    if (selectedItem) {
+      openPopup(selectedItem);
+    }
+  });
+}
 
 quickFilterButtons.forEach(button => {
   button.addEventListener("click", () => {
-    const category = button.dataset.category;
-    categorySelect.value = category;
+    currentCategory = button.dataset.category || "all";
     renderItems();
   });
 });
 
-searchInput.addEventListener("input", renderItems);
-categorySelect.addEventListener("change", renderItems);
-closePopupBtn.addEventListener("click", closePopup);
+if (searchInput) {
+  searchInput.addEventListener("input", renderItems);
+}
 
-popupElement.addEventListener("click", event => {
-  if (event.target === popupElement) {
-    closePopup();
-  }
-});
+if (closePopupBtn) {
+  closePopupBtn.addEventListener("click", closePopup);
+}
+
+if (popupElement) {
+  popupElement.addEventListener("click", event => {
+    if (event.target === popupElement) {
+      closePopup();
+    }
+  });
+}
 
 document.addEventListener("keydown", event => {
   if (event.key === "Escape" && !popupElement.classList.contains("hidden")) {
@@ -194,4 +226,6 @@ document.addEventListener("keydown", event => {
   }
 });
 
-renderItems();
+if (hasRequiredDom()) {
+  renderItems();
+}
