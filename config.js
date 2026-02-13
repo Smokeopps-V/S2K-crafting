@@ -595,6 +595,20 @@
     }
   },
   {
+    name: "HyperCore Drill",
+    category: "tools",
+    levelRequired: 30,
+    blueprintRequired: true,
+    xp: 100,
+    stopLevel: 6000,
+    materials: {
+      scrap: 400,
+      drillHousing: 1,
+      drillBattery: 1,
+      drillBit: 1
+    }
+  },
+  {
     name: "Racing Tablet",
     category: "tools",
     levelRequired: 15,
@@ -616,15 +630,15 @@
   {
     name: "Exotic Lockpick",
     category: "tools",
-    levelRequired: 10,
-    blueprintRequired: false,
+    levelRequired: 20,
+    blueprintRequired: true,
     xp: 10,
-    stopLevel: 50,
+    stopLevel: 5000,
     materials: {
-      plastic: 75,
-      alum: 75,
+      titanium: 25,
+      aluminium: 75,
       scrap: 75,
-      titanium: 25
+      plastic: 75
     }
   },
   {
@@ -643,6 +657,19 @@
       wire: 115,
       steel: 190,
       rubber: 380
+    }
+  },
+  {
+    name: "ECU Hacking Device",
+    category: "tools",
+    levelRequired: 35,
+    blueprintRequired: true,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      wire: 230,
+      electronics: 230,
+      techShavings: 25
     }
   },
   {
@@ -873,6 +900,18 @@
     }
   },
   {
+    name: "SMG Ammo",
+    category: "materials",
+    levelRequired: 19,
+    blueprintRequired: true,
+    xp: 1,
+    stopLevel: 2500,
+    materials: {
+      scrap: 15,
+      gunpowder: 15
+    }
+  },
+  {
     name: "Digital Scanner",
     category: "tools",
     levelRequired: 35,
@@ -1085,6 +1124,20 @@
       plastic: 130,
       scrap: 30,
       aluminium: 55
+    }
+  },
+  {
+    name: "Meth Lab Kit",
+    category: "tools",
+    levelRequired: 20,
+    blueprintRequired: true,
+    xp: 15,
+    stopLevel: 6000,
+    materials: {
+      aluminium: 750,
+      scrap: 750,
+      plastic: 750,
+      titanium: 150
     }
   }
 ];
