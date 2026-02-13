@@ -194,7 +194,7 @@ const CONFIG_ITEMS = [
   {
     name: "UMP",
     category: "weapons",
-    levelRequired: 0,
+    levelRequired: 45,
     blueprintRequired: true,
     xp: 25,
     stopLevel: 92,
@@ -302,7 +302,7 @@ const CONFIG_ITEMS = [
   {
     name: "Golfclub",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 10,
     blueprintRequired: false,
     xp: 8,
     stopLevel: 6000,
@@ -311,7 +311,7 @@ const CONFIG_ITEMS = [
   {
     name: "Bottle",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 15,
     blueprintRequired: false,
     xp: 10,
     stopLevel: 6000,
@@ -320,7 +320,7 @@ const CONFIG_ITEMS = [
   {
     name: "Pool Cue",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 17,
     blueprintRequired: false,
     xp: 10,
     stopLevel: 6000,
@@ -329,7 +329,7 @@ const CONFIG_ITEMS = [
   {
     name: "Pan",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 23,
     blueprintRequired: false,
     xp: 12,
     stopLevel: 7000,
@@ -532,7 +532,7 @@ const CONFIG_ITEMS = [
   {
     name: "Tool Belt",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 18,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 60000,
@@ -550,7 +550,7 @@ const CONFIG_ITEMS = [
   {
     name: "Manhole Remover",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 10,
     blueprintRequired: false,
     xp: 2,
     stopLevel: 2500,
@@ -559,7 +559,7 @@ const CONFIG_ITEMS = [
   {
     name: "Drill Battery",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 25,
     blueprintRequired: false,
     xp: 3,
     stopLevel: 3500,
@@ -568,7 +568,7 @@ const CONFIG_ITEMS = [
   {
     name: "Drug Crate",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 25,
     blueprintRequired: false,
     xp: 3,
     stopLevel: 3500,
@@ -577,7 +577,7 @@ const CONFIG_ITEMS = [
   {
     name: "Bag of Clothes",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 25,
     blueprintRequired: false,
     xp: 5,
     stopLevel: 6000,
@@ -595,7 +595,7 @@ const CONFIG_ITEMS = [
   {
     name: "Rifle Ammo",
     category: "materials",
-    levelRequired: 0,
+    levelRequired: 29,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 3500,
@@ -604,7 +604,7 @@ const CONFIG_ITEMS = [
   {
     name: "Digital Scanner",
     category: "tools",
-    levelRequired: 0,
+    levelRequired: 35,
     blueprintRequired: false,
     xp: 15,
     stopLevel: 5500,
@@ -622,7 +622,7 @@ const CONFIG_ITEMS = [
   {
     name: "Gunpowder",
     category: "materials",
-    levelRequired: 0,
+    levelRequired: 5,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 1200,
@@ -631,7 +631,7 @@ const CONFIG_ITEMS = [
   {
     name: "Copper",
     category: "materials",
-    levelRequired: 0,
+    levelRequired: 5,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 1200,
@@ -640,7 +640,7 @@ const CONFIG_ITEMS = [
   {
     name: "Gold",
     category: "materials",
-    levelRequired: 0,
+    levelRequired: 5,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 1200,
@@ -649,7 +649,7 @@ const CONFIG_ITEMS = [
   {
     name: "Aluminum Oxide",
     category: "materials",
-    levelRequired: 0,
+    levelRequired: 35,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 1200,
@@ -658,7 +658,7 @@ const CONFIG_ITEMS = [
   {
     name: "Iron Oxide",
     category: "materials",
-    levelRequired: 0,
+    levelRequired: 35,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 1200,
@@ -685,7 +685,7 @@ const CONFIG_ITEMS = [
   {
     name: "AK47",
     category: "weapons",
-    levelRequired: 0,
+    levelRequired: 45,
     blueprintRequired: true,
     xp: 50,
     stopLevel: 10000,
@@ -703,7 +703,7 @@ const CONFIG_ITEMS = [
   {
     name: "Tommy Gun",
     category: "weapons",
-    levelRequired: 0,
+    levelRequired: 35,
     blueprintRequired: true,
     xp: 25,
     stopLevel: 8750,
@@ -773,3 +773,4 @@ const CONFIG_ITEMS = [
     materials: { plastic: 130, scrap: 30, aluminium: 55 }
   }
 ];
+
