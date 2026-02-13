@@ -5,8 +5,8 @@ const CONFIG_ITEMS = [
     levelRequired: 10,
     blueprintRequired: false,
     xp: 5,
-    stopLevel: 12,
-    materials: { plastic: 75, scrap: 40, elect: 75, glass: 40 }
+    stopLevel: 1250,
+    materials: { glass: 40, plastic: 75, electronics: 75, scrap: 40 }
   },
   {
     name: "SMG Flashlight",
@@ -14,8 +14,8 @@ const CONFIG_ITEMS = [
     levelRequired: 20,
     blueprintRequired: false,
     xp: 10,
-    stopLevel: 22,
-    materials: { plastic: 115, scrap: 55, elect: 115, glass: 40 }
+    stopLevel: 2200,
+    materials: { glass: 40, plastic: 115, electronics: 115, scrap: 55 }
   },
   {
     name: "Rifle Flashlight",
@@ -23,8 +23,8 @@ const CONFIG_ITEMS = [
     levelRequired: 30,
     blueprintRequired: false,
     xp: 15,
-    stopLevel: 60,
-    materials: { plastic: 150, scrap: 75, elect: 150, glass: 40 }
+    stopLevel: 6000,
+    materials: { glass: 40, plastic: 150, electronics: 150, scrap: 75 }
   },
   {
     name: "Small Scope",
@@ -32,17 +32,19 @@ const CONFIG_ITEMS = [
     levelRequired: 15,
     blueprintRequired: false,
     xp: 5,
-    stopLevel: 20,
-    materials: { plastic: 115, scrap: 10, elect: 75, glass: 40 }
+    stopLevel: 2000,
+    yields: 2,
+    materials: { scrap: 10, plastic: 115, electronics: 75, glass: 40 }
   },
   {
     name: "Medium Scope",
     category: "attachments",
     levelRequired: 20,
     blueprintRequired: false,
-    xp: 5,
-    stopLevel: 25,
-    materials: { plastic: 150, scrap: 15, elect: 115, glass: 40 }
+    xp: 10,
+    stopLevel: 2500,
+    yields: 2,
+    materials: { scrap: 15, plastic: 150, electronics: 115, glass: 40 }
   },
   {
     name: "Large Scope",
@@ -50,8 +52,9 @@ const CONFIG_ITEMS = [
     levelRequired: 30,
     blueprintRequired: false,
     xp: 15,
-    stopLevel: 60,
-    materials: { plastic: 190, scrap: 25, elect: 150, glass: 40 }
+    stopLevel: 6000,
+    yields: 2,
+    materials: { scrap: 25, plastic: 190, electronics: 150, glass: 40 }
   },
   {
     name: "Shotgun Suppressor",
@@ -77,35 +80,35 @@ const CONFIG_ITEMS = [
     levelRequired: 29,
     blueprintRequired: true,
     xp: 10,
-    stopLevel: 35,
+    stopLevel: 3500,
     materials: { scrap: 150, rubber: 55, steel: 150, titanium: 15 }
   },
   {
-    name: "Sub Extended Mag",
+    name: "Ext Sub Mag",
     category: "attachments",
     levelRequired: 22,
     blueprintRequired: true,
     xp: 15,
-    stopLevel: 25,
-    materials: { plastic: 75, alum: 115, scrap: 115, titanium: 5 }
+    stopLevel: 2500,
+    materials: { plastic: 75, titanium: 5, scrap: 115, aluminium: 115 }
   },
   {
-    name: "Pistol Extended Mag",
+    name: "Ext Pistol Mag",
     category: "attachments",
     levelRequired: 22,
     blueprintRequired: true,
     xp: 10,
-    stopLevel: 28,
-    materials: { plastic: 40, alum: 75, scrap: 75, titanium: 10 }
+    stopLevel: 2800,
+    materials: { plastic: 40, titanium: 10, scrap: 75, aluminium: 75 }
   },
   {
-    name: "Shotgun Extended Mag",
+    name: "Ext Shotgun Mag",
     category: "attachments",
     levelRequired: 32,
     blueprintRequired: true,
     xp: 10,
-    stopLevel: 60,
-    materials: { plastic: 115, alum: 150, scrap: 150, titanium: 10 }
+    stopLevel: 6000,
+    materials: { plastic: 115, titanium: 10, scrap: 150, aluminium: 150 }
   },
   {
     name: "Pistol Drum Mag",
@@ -113,8 +116,8 @@ const CONFIG_ITEMS = [
     levelRequired: 20,
     blueprintRequired: true,
     xp: 10,
-    stopLevel: 60,
-    materials: { plastic: 75, alum: 115, scrap: 115, titanium: 5 }
+    stopLevel: 6000,
+    materials: { plastic: 75, titanium: 5, scrap: 115, aluminium: 115 }
   },
   {
     name: "Sub Drum Mag",
@@ -122,8 +125,8 @@ const CONFIG_ITEMS = [
     levelRequired: 25,
     blueprintRequired: true,
     xp: 15,
-    stopLevel: 60,
-    materials: { plastic: 115, alum: 150, scrap: 150, titanium: 10 }
+    stopLevel: 6000,
+    materials: { plastic: 115, titanium: 10, scrap: 150, aluminium: 150 }
   },
   {
     name: "Vintage Pistol",
@@ -131,8 +134,8 @@ const CONFIG_ITEMS = [
     levelRequired: 20,
     blueprintRequired: false,
     xp: 15,
-    stopLevel: 60,
-    materials: { plastic: 520, alum: 220, scrap: 150, titanium: 40 }
+    stopLevel: 6000,
+    materials: { pistolSlide: 1, titanium: 40, gunTrigger: 1, pistolClip: 1, pistolGrip: 1 }
   },
   {
     name: "Desert Eagle",
@@ -222,43 +225,43 @@ const CONFIG_ITEMS = [
     blueprintRequired: true,
     xp: 5,
     stopLevel: 6000,
-    materials: { plastic: 55, alum: 30, scrap: 75, titanium: 5 }
+    materials: { plastic: 55, titanium: 5, scrap: 75, aluminium: 30 }
   },
   {
-    name: "Scale",
+    name: "Scales",
     category: "tools",
     levelRequired: 0,
     blueprintRequired: true,
     xp: 1,
-    stopLevel: 5,
-    materials: { plastic: 40, scrap: 15, elect: 10, glass: 15, controlChip: 1, powerSupply: 1, circuitBoard: 1 }
+    stopLevel: 500,
+    materials: { glass: 15, scrap: 15, controlChip: 1, powerSupply: 1, plastic: 40, electronics: 10, circuitBoard: 1 }
   },
   {
-    name: "Advance Lockpick",
+    name: "Advanced Lockpick",
     category: "tools",
     levelRequired: 0,
     blueprintRequired: true,
     xp: 3,
-    stopLevel: 10,
-    materials: { plastic: 30, alum: 30, scrap: 30 }
+    stopLevel: 1000,
+    materials: { plastic: 30, scrap: 30, aluminium: 30 }
   },
   {
-    name: "Screwdriver Set",
+    name: "Screw driver Set",
     category: "tools",
     levelRequired: 1,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 8,
-    materials: { plastic: 10, alum: 10, scrap: 10 }
+    stopLevel: 800,
+    materials: { plastic: 10, scrap: 10, aluminium: 10 }
   },
   {
-    name: "Fake Plate",
+    name: "Fake Number Plate",
     category: "tools",
     levelRequired: 2,
     blueprintRequired: true,
     xp: 15,
-    stopLevel: 60,
-    materials: { plastic: 150, alum: 75, scrap: 225, steel: 75 }
+    stopLevel: 60000,
+    materials: { scrap: 225, plastic: 150, steel: 75, aluminium: 75 }
   },
   {
     name: "Heavy Cutters",
@@ -266,17 +269,17 @@ const CONFIG_ITEMS = [
     levelRequired: 5,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 25,
-    materials: { plastic: 15, scrap: 40, rubber: 15, steel: 15, titanium: 5 }
+    stopLevel: 2500,
+    materials: { titanium: 5, scrap: 40, plastic: 15, steel: 15, rubber: 15 }
   },
   {
-    name: "Zipitie",
+    name: "Ziptie",
     category: "tools",
     levelRequired: 5,
     blueprintRequired: false,
     xp: 2,
-    stopLevel: 10,
-    materials: { plastic: 55, alum: 25, steel: 35, wire: 25 }
+    stopLevel: 1000,
+    materials: { wire: 25, plastic: 55, steel: 35, aluminium: 25 }
   },
   {
     name: "Machete",
@@ -284,8 +287,8 @@ const CONFIG_ITEMS = [
     levelRequired: 5,
     blueprintRequired: false,
     xp: 5,
-    stopLevel: 6,
-    materials: { plastic: 55, alum: 30, scrap: 75, titanium: 5 }
+    stopLevel: 6000,
+    materials: { plastic: 55, titanium: 5, scrap: 75, aluminium: 30 }
   },
   {
     name: "Battle Axe",
@@ -293,8 +296,44 @@ const CONFIG_ITEMS = [
     levelRequired: 7,
     blueprintRequired: false,
     xp: 5,
-    stopLevel: 6,
-    materials: { plastic: 55, alum: 75, scrap: 75, titanium: 5 }
+    stopLevel: 6000,
+    materials: { plastic: 55, titanium: 5, scrap: 75, aluminium: 75 }
+  },
+  {
+    name: "Golfclub",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 8,
+    stopLevel: 6000,
+    materials: { plastic: 60, titanium: 10, scrap: 90, aluminium: 60 }
+  },
+  {
+    name: "Bottle",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 10,
+    stopLevel: 6000,
+    materials: { plastic: 70, titanium: 15, scrap: 105, aluminium: 70 }
+  },
+  {
+    name: "Pool Cue",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 10,
+    stopLevel: 6000,
+    materials: { plastic: 70, titanium: 15, scrap: 105, aluminium: 70 }
+  },
+  {
+    name: "Pan",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 12,
+    stopLevel: 7000,
+    materials: { plastic: 70, titanium: 25, scrap: 130, aluminium: 70 }
   },
   {
     name: "Safe Cracker",
@@ -302,8 +341,8 @@ const CONFIG_ITEMS = [
     levelRequired: 12,
     blueprintRequired: false,
     xp: 2,
-    stopLevel: 25,
-    materials: { plastic: 10, alum: 75, scrap: 25, steel: 55, titanium: 5 }
+    stopLevel: 2500,
+    materials: { titanium: 5, scrap: 25, plastic: 10, steel: 55, aluminium: 75 }
   },
   {
     name: "Heavy Duty Drill",
@@ -311,17 +350,17 @@ const CONFIG_ITEMS = [
     levelRequired: 15,
     blueprintRequired: false,
     xp: 100,
-    stopLevel: 35,
+    stopLevel: 3500,
     materials: {
-      plastic: 750,
+      titanium: 15,
       scrap: 380,
-      rubber: 450,
-      steel: 530,
-      elect: 450,
-      controlChip: 5,
       powerSupply: 5,
+      plastic: 750,
+      steel: 530,
+      controlChip: 5,
       circuitBoard: 5,
-      titanium: 15
+      electronics: 450,
+      rubber: 450
     }
   },
   {
@@ -330,17 +369,17 @@ const CONFIG_ITEMS = [
     levelRequired: 15,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
+    stopLevel: 60000,
     materials: {
+      glass: 375,
+      brokenTablet: 1,
+      powerSupply: 2,
       plastic: 15,
       rubber: 40,
-      elect: 150,
-      glass: 375,
-      wire: 375,
       controlChip: 2,
-      powerSupply: 2,
       circuitBoard: 2,
-      brokenTablet: 1
+      electronics: 150,
+      wire: 375
     }
   },
   {
@@ -358,60 +397,60 @@ const CONFIG_ITEMS = [
     levelRequired: 20,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 30,
+    stopLevel: 3000,
     materials: {
+      electronics: 380,
+      circuitBoard: 2,
       scrap: 525,
-      rubber: 380,
-      steel: 190,
-      elect: 380,
-      wire: 115,
       controlChip: 2,
       powerSupply: 2,
-      circuitBoard: 2
+      wire: 115,
+      steel: 190,
+      rubber: 380
     }
   },
   {
-    name: "Advance Radio",
+    name: "Advanced Radio",
     category: "tools",
     levelRequired: 23,
     blueprintRequired: false,
     xp: 25,
-    stopLevel: 30,
+    stopLevel: 3000,
     materials: {
+      unknownUsbDevice: 1,
       controlChip: 1,
       powerSupply: 1,
-      circuitBoard: 1,
-      unknownUsb: 1,
       hackingDevice: 1,
-      radio: 1
+      radio: 1,
+      circuitBoard: 1
     }
   },
   {
-    name: "USB Device",
+    name: "Unknown USB Device",
     category: "tools",
     levelRequired: 25,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
-    materials: { plastic: 75, rubber: 10, elect: 150, wire: 25, circuitBoard: 1, brokenUsb: 1 }
+    stopLevel: 60000,
+    materials: { circuitBoard: 1, brokenUsb: 1, rubber: 10, plastic: 75, electronics: 150, wire: 25 }
   },
   {
-    name: "Drilling House",
+    name: "Drill Housing",
     category: "tools",
     levelRequired: 25,
     blueprintRequired: false,
     xp: 3,
-    stopLevel: 35,
+    stopLevel: 3500,
     materials: {
-      plastic: 380,
+      titanium: 115,
       scrap: 380,
-      rubber: 380,
-      steel: 380,
-      elect: 380,
-      controlChip: 3,
       powerSupply: 3,
+      plastic: 380,
+      steel: 380,
+      controlChip: 3,
       circuitBoard: 3,
-      titanium: 115
+      electronics: 380,
+      rubber: 380
     }
   },
   {
@@ -420,8 +459,8 @@ const CONFIG_ITEMS = [
     levelRequired: 25,
     blueprintRequired: false,
     xp: 3,
-    stopLevel: 35,
-    materials: { plastic: 75, rubber: 380 }
+    stopLevel: 3500,
+    materials: { rubber: 380, plastic: 75 }
   },
   {
     name: "VPN",
@@ -429,16 +468,16 @@ const CONFIG_ITEMS = [
     levelRequired: 32,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
+    stopLevel: 60000,
     materials: {
-      scrap: 375,
-      rubber: 150,
-      steel: 115,
-      elect: 375,
-      wire: 40,
-      controlChip: 5,
-      powerSupply: 5,
       circuitBoard: 5,
+      scrap: 375,
+      powerSupply: 5,
+      wire: 40,
+      rubber: 150,
+      controlChip: 5,
+      steel: 115,
+      electronics: 375,
       brokenVpn: 1
     }
   },
@@ -448,8 +487,9 @@ const CONFIG_ITEMS = [
     levelRequired: 37,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
-    materials: { plastic: 150, elect: 30 }
+    stopLevel: 60000,
+    yields: 10,
+    materials: { electronics: 30, plastic: 150 }
   },
   {
     name: "Info Laptop",
@@ -457,16 +497,16 @@ const CONFIG_ITEMS = [
     levelRequired: 40,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
+    stopLevel: 60000,
     materials: {
+      glass: 750,
+      powerSupply: 5,
       plastic: 375,
       rubber: 750,
-      elect: 1125,
-      glass: 750,
-      wire: 750,
       controlChip: 5,
-      powerSupply: 5,
       circuitBoard: 5,
+      wire: 750,
+      electronics: 1125,
       brokenLaptop: 1
     }
   },
@@ -476,18 +516,153 @@ const CONFIG_ITEMS = [
     levelRequired: 40,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
+    stopLevel: 60000,
     materials: {
+      glass: 750,
+      powerSupply: 5,
       plastic: 375,
       rubber: 750,
-      elect: 1125,
-      glass: 750,
-      wire: 750,
       controlChip: 5,
-      powerSupply: 5,
       circuitBoard: 5,
+      wire: 750,
+      electronics: 1125,
       brokenLaptop: 1
     }
+  },
+  {
+    name: "Tool Belt",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 60000,
+    materials: { sewingThread: 75, leatherHide: 40 }
+  },
+  {
+    name: "Lockpick",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 500,
+    materials: { plastic: 5, scrap: 10, rubber: 15 }
+  },
+  {
+    name: "Manhole Remover",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 2,
+    stopLevel: 2500,
+    materials: { scrap: 25, titanium: 15, steel: 55, aluminium: 75 }
+  },
+  {
+    name: "Drill Battery",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 3,
+    stopLevel: 3500,
+    materials: { superCellBattery: 150 }
+  },
+  {
+    name: "Drug Crate",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 3,
+    stopLevel: 3500,
+    materials: { rubber: 25, plastic: 40, steel: 50, aluminium: 30 }
+  },
+  {
+    name: "Bag of Clothes",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 5,
+    stopLevel: 6000,
+    materials: {
+      blaineCountyCoyotes: 1,
+      downtownBullsharks: 1,
+      paletoBayPirates: 1,
+      losSantosBandits: 1,
+      mazeBankMaulers: 1,
+      mountChiliadAvalanche: 1,
+      vinewoodStars: 1,
+      vespucciBeachSharks: 1
+    }
+  },
+  {
+    name: "Rifle Ammo",
+    category: "materials",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 3500,
+    materials: { scrap: 25, gunpowder: 25 }
+  },
+  {
+    name: "Digital Scanner",
+    category: "tools",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 15,
+    stopLevel: 5500,
+    materials: {
+      techShavings: 45,
+      titanium: 75,
+      circuitBoard: 3,
+      controlChip: 3,
+      powerSupply: 3,
+      plastic: 230,
+      electronics: 530,
+      wire: 265
+    }
+  },
+  {
+    name: "Gunpowder",
+    category: "materials",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 1200,
+    materials: { sulfurPowder: 25, charcoal: 15 }
+  },
+  {
+    name: "Copper",
+    category: "materials",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 1200,
+    materials: { copperOre: 10 }
+  },
+  {
+    name: "Gold",
+    category: "materials",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 1200,
+    materials: { goldNugget: 10 }
+  },
+  {
+    name: "Aluminum Oxide",
+    category: "materials",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 1200,
+    materials: { gunpowder: 25, aluminium: 25 }
+  },
+  {
+    name: "Iron Oxide",
+    category: "materials",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 1200,
+    materials: { gunpowder: 25, steel: 25 }
   },
   {
     name: "Thermite",
@@ -508,13 +683,49 @@ const CONFIG_ITEMS = [
     materials: { alum: 150, scrap: 380, steel: 150, titanium: 75 }
   },
   {
+    name: "AK47",
+    category: "weapons",
+    levelRequired: 0,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 10000,
+    materials: {
+      akMag: 1,
+      titanium: 350,
+      akBolt: 1,
+      akBarrelPin: 1,
+      akStock: 1,
+      akReceiverCover: 1,
+      akBarrel: 1,
+      akPistonPin: 1
+    }
+  },
+  {
+    name: "Tommy Gun",
+    category: "weapons",
+    levelRequired: 0,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 8750,
+    materials: {
+      boltAssembly: 1,
+      titanium: 135,
+      smgMag: 1,
+      gunTrigger: 1,
+      smgBarrel: 1,
+      metalSpring: 1,
+      planks: 5,
+      smgExtractor: 1
+    }
+  },
+  {
     name: "Metal Spring",
     category: "materials",
     levelRequired: 6,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
-    materials: { plastic: 120, alum: 30, scrap: 15 }
+    stopLevel: 6000,
+    materials: { plastic: 120, scrap: 15, aluminium: 30 }
   },
   {
     name: "Bolt Assembly",
@@ -531,8 +742,8 @@ const CONFIG_ITEMS = [
     levelRequired: 12,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
-    materials: { plastic: 130, alum: 40, scrap: 25 }
+    stopLevel: 6000,
+    materials: { plastic: 130, scrap: 25, aluminium: 40 }
   },
   {
     name: "Pistol Slide",
@@ -540,8 +751,8 @@ const CONFIG_ITEMS = [
     levelRequired: 14,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
-    materials: { plastic: 130, alum: 70, scrap: 40 }
+    stopLevel: 6000,
+    materials: { plastic: 130, scrap: 40, aluminium: 70 }
   },
   {
     name: "Pistol Grip",
@@ -549,8 +760,8 @@ const CONFIG_ITEMS = [
     levelRequired: 16,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
-    materials: { plastic: 130, alum: 55, scrap: 55 }
+    stopLevel: 6000,
+    materials: { plastic: 130, scrap: 55, aluminium: 55 }
   },
   {
     name: "Pistol Clip",
@@ -558,7 +769,7 @@ const CONFIG_ITEMS = [
     levelRequired: 18,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60,
-    materials: { plastic: 130, alum: 55, scrap: 30 }
+    stopLevel: 6000,
+    materials: { plastic: 130, scrap: 30, aluminium: 55 }
   }
 ];

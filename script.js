@@ -24,6 +24,133 @@ function formatMaterialLabel(materialKey) {
     .toUpperCase();
 }
 
+function normalizeLookupKey(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+}
+
+function materialKeyToText(materialKey) {
+  return String(materialKey || "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .trim();
+}
+
+function sortMaterialEntries(materials) {
+  return Object.entries(materials || {}).sort((a, b) => {
+    const amountA = Number(a[1]);
+    const amountB = Number(b[1]);
+
+    if (amountA === amountB) {
+      return a[0].localeCompare(b[0]);
+    }
+
+    return amountB - amountA;
+  });
+}
+
+function buildItemLookup(items) {
+  const lookup = new Map();
+
+  items.forEach(item => {
+    const normalizedName = normalizeLookupKey(item.name);
+    if (normalizedName) {
+      lookup.set(normalizedName, item);
+    }
+  });
+
+  return lookup;
+}
+
+function findCraftableItem(materialKey, itemLookup) {
+  const candidates = [
+    normalizeLookupKey(materialKey),
+    normalizeLookupKey(materialKeyToText(materialKey))
+  ];
+
+  for (const key of candidates) {
+    if (itemLookup.has(key)) {
+      return itemLookup.get(key);
+    }
+  }
+
+  return null;
+}
+
+function renderMaterialTree(options) {
+  const {
+    container,
+    materials,
+    itemLookup,
+    depth = 0,
+    multiplier = 1,
+    ancestry = new Set(),
+    maxDepth = 4
+  } = options;
+
+  const materialEntries = sortMaterialEntries(materials);
+  materialEntries.forEach(([material, amount]) => {
+    const row = document.createElement("div");
+    row.className = "material-row";
+    row.style.setProperty("--depth", String(depth));
+    if (depth > 0) {
+      row.classList.add("is-nested");
+    }
+
+    const materialName = document.createElement("span");
+    materialName.textContent = formatMaterialLabel(material);
+
+    const numericAmount = Number(amount);
+    const scaledAmount = Number.isFinite(numericAmount) ? numericAmount * multiplier : amount;
+    const materialAmount = document.createElement("span");
+    materialAmount.textContent = String(scaledAmount);
+
+    row.appendChild(materialName);
+    row.appendChild(materialAmount);
+    container.appendChild(row);
+
+    if (depth >= maxDepth) {
+      return;
+    }
+
+    const childItem = findCraftableItem(material, itemLookup);
+    if (!childItem || !childItem.materials) {
+      return;
+    }
+
+    const childId = normalizeLookupKey(childItem.name);
+    if (ancestry.has(childId)) {
+      return;
+    }
+
+    const childRows = sortMaterialEntries(childItem.materials);
+    if (childRows.length === 0) {
+      return;
+    }
+
+    row.classList.add("is-craftable");
+
+    const childContainer = document.createElement("div");
+    childContainer.className = "material-children";
+
+    const nextAncestry = new Set(ancestry);
+    nextAncestry.add(childId);
+
+    renderMaterialTree({
+      container: childContainer,
+      materials: childItem.materials,
+      itemLookup,
+      depth: depth + 1,
+      multiplier: Number.isFinite(numericAmount) ? scaledAmount : multiplier,
+      ancestry: nextAncestry,
+      maxDepth
+    });
+
+    container.appendChild(childContainer);
+  });
+}
+
 function getItems() {
   if (typeof CONFIG_ITEMS === "undefined" || !Array.isArray(CONFIG_ITEMS)) {
     console.error("CONFIG_ITEMS is missing or invalid.");
@@ -136,17 +263,7 @@ function openPopup(item) {
   popupBP.textContent = item.blueprintRequired ? "Blueprint required" : "No blueprint needed";
 
   popupMaterials.innerHTML = "";
-
-  const materialEntries = Object.entries(item.materials || {}).sort((a, b) => {
-    const amountA = Number(a[1]);
-    const amountB = Number(b[1]);
-
-    if (amountA === amountB) {
-      return a[0].localeCompare(b[0]);
-    }
-
-    return amountB - amountA;
-  });
+  const materialEntries = sortMaterialEntries(item.materials);
 
   if (materialEntries.length === 0) {
     const row = document.createElement("div");
@@ -154,19 +271,14 @@ function openPopup(item) {
     row.textContent = "No materials configured for this item.";
     popupMaterials.appendChild(row);
   } else {
-    materialEntries.forEach(([material, amount]) => {
-      const row = document.createElement("div");
-      row.className = "material-row";
-
-      const materialName = document.createElement("span");
-      materialName.textContent = formatMaterialLabel(material);
-
-      const materialAmount = document.createElement("span");
-      materialAmount.textContent = String(amount);
-
-      row.appendChild(materialName);
-      row.appendChild(materialAmount);
-      popupMaterials.appendChild(row);
+    const itemLookup = buildItemLookup(getItems());
+    renderMaterialTree({
+      container: popupMaterials,
+      materials: item.materials,
+      itemLookup,
+      depth: 0,
+      multiplier: 1,
+      ancestry: new Set([normalizeLookupKey(item.name)])
     });
   }
 
