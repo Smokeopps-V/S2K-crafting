@@ -77,6 +77,19 @@ select {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Native select dropdown list colors (browser support varies by OS/browser). */
+select,
+select option,
+select optgroup {
+  background-color: #02070d;
+  color: var(--accent-strong);
+}
+
+select option:checked {
+  background: #0b1f2d;
+  color: var(--accent-strong);
+}
+
 input:focus,
 select:focus {
   outline: none;
