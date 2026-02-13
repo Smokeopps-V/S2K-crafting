@@ -19,7 +19,8 @@ const CONFIG_ITEMS = [
     materials: {
       steel: 25,
       plastic: 15,
-      electronics: 10
+      electronics: 10,
+      titanium: 6
     }
   },
 
@@ -30,8 +31,14 @@ const CONFIG_ITEMS = [
     blueprintRequired: true,
     materials: {
       steel: 40,
-      rubber: 10
+      rubber: 10,
+      titanium: 12
     }
   }
 
+];
+
+const CONFIG_CRAFT_PLAN = [
+  { item: "Advanced Lockpick", quantity: 2 },
+  { item: "Switchblade", quantity: 1 }
 ];

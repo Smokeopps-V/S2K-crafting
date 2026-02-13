@@ -3,6 +3,10 @@ const searchInput = document.getElementById("search");
 const categorySelect = document.getElementById("category");
 const quickFilterButtons = Array.from(document.querySelectorAll(".chip"));
 const resultCount = document.getElementById("resultCount");
+const planItemsElement = document.getElementById("planItems");
+const planMaterialsElement = document.getElementById("planMaterials");
+const planTotalMatsElement = document.getElementById("planTotalMats");
+const planTitaniumTotalElement = document.getElementById("planTitaniumTotal");
 const popupElement = document.getElementById("popup");
 const popupTitle = document.getElementById("popupTitle");
 const popupLevel = document.getElementById("popupLevel");
@@ -26,6 +30,120 @@ function renderEmptyState(message) {
   emptyState.className = "empty-state";
   emptyState.textContent = message;
   itemList.appendChild(emptyState);
+}
+
+function getCraftPlan() {
+  if (typeof CONFIG_CRAFT_PLAN === "undefined") {
+    return [];
+  }
+
+  if (!Array.isArray(CONFIG_CRAFT_PLAN)) {
+    console.error("CONFIG_CRAFT_PLAN must be an array.");
+    return [];
+  }
+
+  return CONFIG_CRAFT_PLAN;
+}
+
+function renderPlanMessage(message) {
+  planItemsElement.innerHTML = "";
+  planMaterialsElement.innerHTML = "";
+  planTotalMatsElement.textContent = "";
+  planTitaniumTotalElement.textContent = "";
+
+  const row = document.createElement("div");
+  row.className = "empty-state";
+  row.textContent = message;
+  planItemsElement.appendChild(row);
+}
+
+function createPlanRow(label, value) {
+  const row = document.createElement("div");
+  row.className = "plan-row";
+
+  const left = document.createElement("span");
+  left.textContent = label;
+
+  const right = document.createElement("strong");
+  right.textContent = value;
+
+  row.appendChild(left);
+  row.appendChild(right);
+  return row;
+}
+
+function renderCraftPlan(items) {
+  const craftPlan = getCraftPlan();
+
+  if (craftPlan.length === 0) {
+    renderPlanMessage("No craft plan set. Add entries to CONFIG_CRAFT_PLAN in config.js.");
+    return;
+  }
+
+  const itemLookup = new Map(items.map(item => [item.name.toLowerCase(), item]));
+  const normalizedPlan = [];
+
+  craftPlan.forEach(entry => {
+    const itemName = String(entry.item || entry.name || "").trim();
+    const quantity = Number(entry.quantity);
+
+    if (!itemName || !Number.isFinite(quantity) || quantity <= 0) {
+      return;
+    }
+
+    const itemData = itemLookup.get(itemName.toLowerCase());
+    if (!itemData) {
+      return;
+    }
+
+    normalizedPlan.push({ item: itemData, quantity });
+  });
+
+  if (normalizedPlan.length === 0) {
+    renderPlanMessage("Craft plan has no valid items. Check item names and quantities.");
+    return;
+  }
+
+  planItemsElement.innerHTML = "";
+  planMaterialsElement.innerHTML = "";
+
+  const totalMaterials = {};
+
+  normalizedPlan.forEach(({ item, quantity }) => {
+    planItemsElement.appendChild(createPlanRow(item.name, `x${quantity}`));
+
+    Object.entries(item.materials || {}).forEach(([material, amount]) => {
+      const numericAmount = Number(amount);
+      if (!Number.isFinite(numericAmount) || numericAmount < 0) {
+        return;
+      }
+
+      totalMaterials[material] = (totalMaterials[material] || 0) + numericAmount * quantity;
+    });
+  });
+
+  const sortedMaterials = Object.entries(totalMaterials).sort((a, b) => {
+    if (a[1] === b[1]) {
+      return a[0].localeCompare(b[0]);
+    }
+
+    return b[1] - a[1];
+  });
+
+  if (sortedMaterials.length === 0) {
+    planMaterialsElement.appendChild(createPlanRow("No materials", "0"));
+  } else {
+    sortedMaterials.forEach(([material, amount]) => {
+      planMaterialsElement.appendChild(createPlanRow(material.toUpperCase(), String(amount)));
+    });
+  }
+
+  const totalMatsCount = sortedMaterials.reduce((sum, [, amount]) => sum + amount, 0);
+  const titaniumEntry = sortedMaterials.find(([material]) => material.toLowerCase() === "titanium");
+  const titaniumTotal = titaniumEntry ? titaniumEntry[1] : 0;
+
+  planTotalMatsElement.textContent = `Total mats: ${totalMatsCount}`;
+  planTitaniumTotalElement.textContent = `Total titanium: ${titaniumTotal}`;
 }
 
 function getCategoryLabel(category) {
@@ -53,6 +171,8 @@ function renderItems() {
   const searchValue = searchInput.value.trim().toLowerCase();
   const selectedCategory = categorySelect.value;
   const items = getItems();
+
+  renderCraftPlan(items);
 
   itemList.innerHTML = "";
 
