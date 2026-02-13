@@ -2,13 +2,18 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S2K Crafting</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="wrapper">
-  <h1>S2K Crafting</h1>
+  <header class="hero">
+    <h1>S2K Crafting</h1>
+    <p class="subtitle">Plan your builds faster with level, blueprint, and material visibility.</p>
+    <p id="resultCount" class="result-count" aria-live="polite"></p>
+  </header>
 
   <div class="controls">
     <input type="text" id="search" placeholder="Search item name...">
@@ -20,16 +25,24 @@
     </select>
   </div>
 
+  <div class="quick-filters" role="group" aria-label="Quick category filters">
+    <button type="button" class="chip is-active" data-category="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-category="tools" aria-pressed="false">Tools</button>
+    <button type="button" class="chip" data-category="weapons" aria-pressed="false">Weapons</button>
+    <button type="button" class="chip" data-category="materials" aria-pressed="false">Materials</button>
+  </div>
+
   <div id="itemList" class="item-list"></div>
 </div>
 
-<!-- ITEM DETAILS POPUP -->
 <div id="popup" class="popup hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
   <div class="popup-content">
-    <button type="button" id="closePopupBtn" class="close-btn" aria-label="Close item details">✕</button>
+    <button type="button" id="closePopupBtn" class="close-btn" aria-label="Close item details">&times;</button>
     <h2 id="popupTitle"></h2>
-    <p id="popupLevel"></p>
-    <p id="popupBP"></p>
+    <div class="popup-meta">
+      <span id="popupLevel" class="meta-pill"></span>
+      <span id="popupBP" class="meta-pill"></span>
+    </div>
     <h3 class="materials-title">Materials Needed</h3>
     <div id="popupMaterials"></div>
   </div>

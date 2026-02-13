@@ -1,6 +1,8 @@
 const itemList = document.getElementById("itemList");
 const searchInput = document.getElementById("search");
 const categorySelect = document.getElementById("category");
+const quickFilterButtons = Array.from(document.querySelectorAll(".chip"));
+const resultCount = document.getElementById("resultCount");
 const popupElement = document.getElementById("popup");
 const popupTitle = document.getElementById("popupTitle");
 const popupLevel = document.getElementById("popupLevel");
@@ -26,6 +28,27 @@ function renderEmptyState(message) {
   itemList.appendChild(emptyState);
 }
 
+function getCategoryLabel(category) {
+  if (category === "all") {
+    return "All items";
+  }
+
+  return `${category.charAt(0).toUpperCase()}${category.slice(1)}`;
+}
+
+function updateResultCount(count, category) {
+  const itemLabel = count === 1 ? "item" : "items";
+  resultCount.textContent = `${count} ${itemLabel} shown in ${getCategoryLabel(category)}`;
+}
+
+function setActiveQuickFilter(category) {
+  quickFilterButtons.forEach(button => {
+    const isActive = button.dataset.category === category;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
+}
+
 function renderItems() {
   const searchValue = searchInput.value.trim().toLowerCase();
   const selectedCategory = categorySelect.value;
@@ -40,6 +63,8 @@ function renderItems() {
   );
 
   itemList.dataset.currentItems = JSON.stringify(filteredItems);
+  updateResultCount(filteredItems.length, selectedCategory);
+  setActiveQuickFilter(selectedCategory);
 
   if (filteredItems.length === 0) {
     renderEmptyState("No items found for your current filters.");
@@ -50,20 +75,35 @@ function renderItems() {
     const card = document.createElement("button");
     card.type = "button";
     card.className = "item-card";
-    card.textContent = item.name;
     card.dataset.itemIndex = String(index);
+    card.innerHTML = `
+      <h3 class="item-card-title">${item.name}</h3>
+      <div class="item-card-meta">
+        <span>Level ${item.levelRequired}+</span>
+        <span class="card-badge">${item.category}</span>
+      </div>
+    `;
     itemList.appendChild(card);
   });
 }
 
 function openPopup(item) {
   popupTitle.textContent = item.name;
-  popupLevel.textContent = `Level Required: ${item.levelRequired}`;
-  popupBP.textContent = `Blueprint Required: ${item.blueprintRequired ? "Yes" : "No"}`;
+  popupLevel.textContent = `Level ${item.levelRequired}+`;
+  popupBP.textContent = item.blueprintRequired ? "Blueprint required" : "No blueprint needed";
 
   popupMaterials.innerHTML = "";
 
-  const materialEntries = Object.entries(item.materials || {});
+  const materialEntries = Object.entries(item.materials || {}).sort((a, b) => {
+    const amountA = Number(a[1]);
+    const amountB = Number(b[1]);
+
+    if (amountA === amountB) {
+      return a[0].localeCompare(b[0]);
+    }
+
+    return amountB - amountA;
+  });
 
   if (materialEntries.length === 0) {
     const row = document.createElement("div");
@@ -114,6 +154,14 @@ itemList.addEventListener("click", event => {
   if (selectedItem) {
     openPopup(selectedItem);
   }
+});
+
+quickFilterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const category = button.dataset.category;
+    categorySelect.value = category;
+    renderItems();
+  });
 });
 
 searchInput.addEventListener("input", renderItems);
