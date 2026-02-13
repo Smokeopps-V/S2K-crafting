@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S2K Crafting</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260213-1">
 </head>
 <body>
 
@@ -17,6 +17,13 @@
 
   <div class="controls">
     <input type="text" id="search" placeholder="Search item name...">
+    <select id="category" aria-label="Filter by category">
+      <option value="all">All Items</option>
+      <option value="attachments">Attachments</option>
+      <option value="tools">Tools</option>
+      <option value="weapons">Weapons</option>
+      <option value="materials">Materials</option>
+    </select>
   </div>
 
   <div class="quick-filters" role="group" aria-label="Quick category filters">
@@ -43,7 +50,7 @@
   </div>
 </div>
 
-<script src="config.js"></script>
-<script src="script.js"></script>
+<script src="config.js?v=20260213-1"></script>
+<script src="script.js?v=20260213-1"></script>
 </body>
 </html>

@@ -152,8 +152,8 @@ select:focus {
   color: var(--text);
   text-align: left;
   cursor: pointer;
-  transform: translateY(6px);
-  opacity: 0;
+  transform: translateY(0);
+  opacity: 1;
   animation: cardEnter 0.35s ease forwards;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -300,6 +300,11 @@ select:focus {
 }
 
 @keyframes cardEnter {
+  from {
+    transform: translateY(6px);
+    opacity: 0.92;
+  }
+
   to {
     transform: translateY(0);
     opacity: 1;

@@ -1,5 +1,6 @@
 const itemList = document.getElementById("itemList");
 const searchInput = document.getElementById("search");
+const categorySelect = document.getElementById("category");
 const quickFilterButtons = Array.from(document.querySelectorAll(".chip"));
 const resultCount = document.getElementById("resultCount");
 const popupElement = document.getElementById("popup");
@@ -10,7 +11,7 @@ const popupMaterials = document.getElementById("popupMaterials");
 const closePopupBtn = document.getElementById("closePopupBtn");
 
 let lastFocusedCard = null;
-let currentCategory = "all";
+let currentCategory = categorySelect ? categorySelect.value : "all";
 
 function hasRequiredDom() {
   return Boolean(itemList && searchInput && resultCount);
@@ -75,7 +76,7 @@ function renderItems() {
   }
 
   const searchValue = searchInput.value.trim().toLowerCase();
-  const selectedCategory = currentCategory;
+  const selectedCategory = categorySelect ? categorySelect.value : currentCategory;
   const items = getItems();
 
   itemList.innerHTML = "";
@@ -200,12 +201,22 @@ if (itemList) {
 quickFilterButtons.forEach(button => {
   button.addEventListener("click", () => {
     currentCategory = button.dataset.category || "all";
+    if (categorySelect) {
+      categorySelect.value = currentCategory;
+    }
     renderItems();
   });
 });
 
 if (searchInput) {
   searchInput.addEventListener("input", renderItems);
+}
+
+if (categorySelect) {
+  categorySelect.addEventListener("change", () => {
+    currentCategory = categorySelect.value || "all";
+    renderItems();
+  });
 }
 
 if (closePopupBtn) {
