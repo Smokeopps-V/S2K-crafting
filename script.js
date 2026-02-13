@@ -14,7 +14,7 @@ let lastFocusedCard = null;
 let currentCategory = categorySelect ? categorySelect.value : "all";
 
 function hasRequiredDom() {
-  return Boolean(itemList && searchInput && resultCount);
+  return Boolean(itemList && searchInput);
 }
 
 function formatMaterialLabel(materialKey) {
@@ -88,11 +88,18 @@ function renderItems() {
     return;
   }
 
-  const filteredItems = items.filter(
-    item =>
-      item.name.toLowerCase().includes(searchValue) &&
-      (selectedCategory === "all" || item.category === selectedCategory)
-  );
+  let filteredItems = [];
+  try {
+    filteredItems = items.filter(
+      item =>
+        String(item.name || "").toLowerCase().includes(searchValue) &&
+        (selectedCategory === "all" || item.category === selectedCategory)
+    );
+  } catch (error) {
+    console.error("Failed to filter items:", error);
+    renderEmptyState("Config loaded, but filtering failed. Check console for details.");
+    return;
+  }
 
   itemList.dataset.currentItems = JSON.stringify(filteredItems);
   updateResultCount(filteredItems.length, selectedCategory);
@@ -238,5 +245,10 @@ document.addEventListener("keydown", event => {
 });
 
 if (hasRequiredDom()) {
-  renderItems();
+  try {
+    renderItems();
+  } catch (error) {
+    console.error("Initial render failed:", error);
+    renderEmptyState("Initial render failed. Open browser console for error details.");
+  }
 }
