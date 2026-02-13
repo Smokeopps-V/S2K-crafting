@@ -168,7 +168,7 @@ const CONFIG_ITEMS = [
     blueprintRequired: false,
     xp: 20,
     stopLevel: 85,
-    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 115, smgParts: 1 }
+    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 115, "smg parts": 1 }
   },
   {
     name: "Mac-10",
@@ -177,16 +177,16 @@ const CONFIG_ITEMS = [
     blueprintRequired: false,
     xp: 25,
     stopLevel: 92,
-    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 150, smgParts: 1 }
+    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 150, "smg parts": 1 }
   },
   {
-    name: "UMP (Do not have)",
+    name: "UMP",
     category: "weapons",
     levelRequired: 0,
     blueprintRequired: false,
     xp: 25,
     stopLevel: 92,
-    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 190, smgParts: 1 }
+    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 190, "smg parts": 1 }
   },
   {
     name: "Super Shorty",
@@ -195,7 +195,7 @@ const CONFIG_ITEMS = [
     blueprintRequired: false,
     xp: 25,
     stopLevel: 82.5,
-    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 120, shotgunParts: 1 }
+    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 120, "shotgun parts": 1 }
   },
   {
     name: "Vepr",
@@ -204,7 +204,7 @@ const CONFIG_ITEMS = [
     blueprintRequired: false,
     xp: 25,
     stopLevel: 85,
-    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 205, shotgunParts: 1 }
+    materials: { plastic: 370, alum: 100, scrap: 55, titanium: 205, "shotgun parts": 1 }
   },
   {
     name: "Switchblade",
@@ -222,7 +222,7 @@ const CONFIG_ITEMS = [
     blueprintRequired: false,
     xp: 1,
     stopLevel: 5,
-    materials: { plastic: 40, scrap: 15, elect: 10, glass: 15, controlChip: 1, powerSupply: 1, circuitBoard: 1 }
+    materials: { plastic: 40, scrap: 15, elect: 10, glass: 15, "control chip": 1, "power supply": 1, "circuit board": 1 }
   },
   {
     name: "Advance Lockpick",
@@ -309,9 +309,9 @@ const CONFIG_ITEMS = [
       rubber: 450,
       steel: 530,
       elect: 450,
-      controlChip: 5,
-      powerSupply: 5,
-      circuitBoard: 5,
+      "control chip": 5,
+      "power supply": 5,
+      "circuit board": 5,
       titanium: 15
     }
   },
@@ -328,10 +328,10 @@ const CONFIG_ITEMS = [
       elect: 150,
       glass: 375,
       wire: 375,
-      controlChip: 2,
-      powerSupply: 2,
-      circuitBoard: 2,
-      brokenTablet: 1
+      "control chip": 2,
+      "power supply": 2,
+      "circuit board": 2,
+      "broken tablet": 1
     }
   },
   {
@@ -356,9 +356,9 @@ const CONFIG_ITEMS = [
       steel: 190,
       elect: 380,
       wire: 115,
-      controlChip: 2,
-      powerSupply: 2,
-      circuitBoard: 2
+      "control chip": 2,
+      "power supply": 2,
+      "circuit board": 2
     }
   },
   {
@@ -368,7 +368,14 @@ const CONFIG_ITEMS = [
     blueprintRequired: false,
     xp: 25,
     stopLevel: 30,
-    materials: { controlChip: 1, powerSupply: 1, circuitBoard: 1, usbRadioHackingDevice: 1 }
+    materials: {
+      "control chip": 1,
+      "power supply": 1,
+      "circuit board": 1,
+      "unkown usb": 1,
+      "hacking device": 1,
+      radio: 1
+    }
   },
   {
     name: "USB Device",
@@ -377,7 +384,7 @@ const CONFIG_ITEMS = [
     blueprintRequired: false,
     xp: 1,
     stopLevel: 60,
-    materials: { plastic: 75, rubber: 10, elect: 150, wire: 25, circuitBoard: 1, brokenUsb: 1 }
+    materials: { plastic: 75, rubber: 10, elect: 150, wire: 25, "circuit board": 1, "broken usb": 1 }
   },
   {
     name: "Drilling House",
@@ -392,9 +399,9 @@ const CONFIG_ITEMS = [
       rubber: 380,
       steel: 380,
       elect: 380,
-      controlChip: 3,
-      powerSupply: 3,
-      circuitBoard: 3,
+      "control chip": 3,
+      "power supply": 3,
+      "circuit board": 3,
       titanium: 115
     }
   },
@@ -420,10 +427,10 @@ const CONFIG_ITEMS = [
       steel: 115,
       elect: 375,
       wire: 40,
-      controlChip: 5,
-      powerSupply: 5,
-      circuitBoard: 5,
-      brokenVpn: 1
+      "control chip": 5,
+      "power supply": 5,
+      "circuit board": 5,
+      "broken vpn": 1
     }
   },
   {
@@ -448,10 +455,10 @@ const CONFIG_ITEMS = [
       elect: 1125,
       glass: 750,
       wire: 750,
-      controlChip: 5,
-      powerSupply: 5,
-      circuitBoard: 5,
-      brokenLaptop: 1
+      "control chip": 5,
+      "power supply": 5,
+      "circuit board": 5,
+      "broken laptop": 1
     }
   },
   {
@@ -467,10 +474,10 @@ const CONFIG_ITEMS = [
       elect: 1125,
       glass: 750,
       wire: 750,
-      controlChip: 5,
-      powerSupply: 5,
-      circuitBoard: 5,
-      brokenLaptop: 1
+      "control chip": 5,
+      "power supply": 5,
+      "circuit board": 5,
+      "broken laptop": 1
     }
   },
   {
@@ -480,7 +487,7 @@ const CONFIG_ITEMS = [
     blueprintRequired: false,
     xp: 1,
     stopLevel: 60,
-    materials: { thermitePowder: 10 }
+    materials: { "thermite powder": 10 }
   },
   {
     name: "Karambit",

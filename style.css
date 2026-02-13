@@ -124,67 +124,6 @@ select:focus {
   box-shadow: 0 6px 14px rgba(0, 227, 194, 0.35);
 }
 
-.plan-panel {
-  margin-bottom: 26px;
-  padding: 16px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: linear-gradient(145deg, rgba(17, 29, 47, 0.9), rgba(12, 20, 33, 0.9));
-}
-
-.plan-panel h2 {
-  margin: 0;
-  font-family: "Chakra Petch", sans-serif;
-  color: var(--accent-strong);
-}
-
-.plan-subtitle {
-  margin: 8px 0 12px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.plan-items,
-.plan-materials {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.plan-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid rgba(152, 174, 195, 0.15);
-  padding-bottom: 8px;
-}
-
-.plan-row:last-child {
-  border-bottom: none;
-}
-
-.plan-materials-title {
-  margin: 16px 0 10px;
-  color: var(--warning);
-  font-size: 15px;
-}
-
-.plan-totals {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(152, 174, 195, 0.2);
-  font-weight: 600;
-}
-
-.plan-totals p {
-  margin: 6px 0;
-}
-
-.plan-totals p:last-child {
-  color: var(--accent);
-}
-
 .item-list {
   display: flex;
   flex-direction: column;
