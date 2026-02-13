@@ -6,6 +6,8 @@ const resultCount = document.getElementById("resultCount");
 const popupElement = document.getElementById("popup");
 const popupTitle = document.getElementById("popupTitle");
 const popupLevel = document.getElementById("popupLevel");
+const popupXP = document.getElementById("popupXP");
+const popupStopXP = document.getElementById("popupStopXP");
 const popupBP = document.getElementById("popupBP");
 const popupMaterials = document.getElementById("popupMaterials");
 const closePopupBtn = document.getElementById("closePopupBtn");
@@ -254,12 +256,14 @@ function renderItems() {
 }
 
 function openPopup(item) {
-  if (!popupElement || !popupTitle || !popupLevel || !popupBP || !popupMaterials || !closePopupBtn) {
+  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupMaterials || !closePopupBtn) {
     return;
   }
 
   popupTitle.textContent = item.name;
   popupLevel.textContent = `Level ${item.levelRequired}+`;
+  popupXP.textContent = `XP ${Number(item.xp) || 0}`;
+  popupStopXP.textContent = `Stop XP ${Number(item.stopLevel) || 0}`;
   popupBP.textContent = item.blueprintRequired ? "Blueprint required" : "No blueprint needed";
 
   popupMaterials.innerHTML = "";
