@@ -23,13 +23,14 @@
   <div id="itemList" class="item-list"></div>
 </div>
 
-<!-- POPUP -->
-<div id="popup" class="popup hidden">
+<!-- ITEM DETAILS POPUP -->
+<div id="popup" class="popup hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
   <div class="popup-content">
-    <span class="close-btn" onclick="closePopup()">✕</span>
+    <button type="button" id="closePopupBtn" class="close-btn" aria-label="Close item details">✕</button>
     <h2 id="popupTitle"></h2>
     <p id="popupLevel"></p>
     <p id="popupBP"></p>
+    <h3 class="materials-title">Materials Needed</h3>
     <div id="popupMaterials"></div>
   </div>
 </div>
