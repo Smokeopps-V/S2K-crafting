@@ -259,6 +259,27 @@ select:focus {
   font-size: 16px;
 }
 
+.craft-qty-row {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.craft-qty-row label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.craft-qty-row input {
+  width: 120px;
+  min-height: 34px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
 .material-row {
   display: flex;
   justify-content: space-between;

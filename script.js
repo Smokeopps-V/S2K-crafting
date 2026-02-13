@@ -9,11 +9,13 @@ const popupLevel = document.getElementById("popupLevel");
 const popupXP = document.getElementById("popupXP");
 const popupStopXP = document.getElementById("popupStopXP");
 const popupBP = document.getElementById("popupBP");
+const popupCraftQty = document.getElementById("popupCraftQty");
 const popupMaterials = document.getElementById("popupMaterials");
 const closePopupBtn = document.getElementById("closePopupBtn");
 
 let lastFocusedCard = null;
 let currentCategory = categorySelect ? categorySelect.value : "all";
+let currentPopupItem = null;
 
 function hasRequiredDom() {
   return Boolean(itemList && searchInput);
@@ -153,6 +155,42 @@ function renderMaterialTree(options) {
   });
 }
 
+function getCraftQuantity() {
+  const rawValue = Number(popupCraftQty ? popupCraftQty.value : 1);
+  if (!Number.isFinite(rawValue)) {
+    return 1;
+  }
+
+  return Math.max(1, Math.floor(rawValue));
+}
+
+function renderPopupMaterials(item, craftQuantity) {
+  if (!popupMaterials) {
+    return;
+  }
+
+  popupMaterials.innerHTML = "";
+  const materialEntries = sortMaterialEntries(item.materials);
+
+  if (materialEntries.length === 0) {
+    const row = document.createElement("div");
+    row.className = "material-row empty-materials";
+    row.textContent = "No materials configured for this item.";
+    popupMaterials.appendChild(row);
+    return;
+  }
+
+  const itemLookup = buildItemLookup(getItems());
+  renderMaterialTree({
+    container: popupMaterials,
+    materials: item.materials,
+    itemLookup,
+    depth: 0,
+    multiplier: craftQuantity,
+    ancestry: new Set([normalizeLookupKey(item.name)])
+  });
+}
+
 function getItems() {
   if (typeof CONFIG_ITEMS === "undefined" || !Array.isArray(CONFIG_ITEMS)) {
     console.error("CONFIG_ITEMS is missing or invalid.");
@@ -256,35 +294,18 @@ function renderItems() {
 }
 
 function openPopup(item) {
-  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupMaterials || !closePopupBtn) {
+  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupCraftQty || !popupMaterials || !closePopupBtn) {
     return;
   }
 
+  currentPopupItem = item;
   popupTitle.textContent = item.name;
   popupLevel.textContent = `Level ${item.levelRequired}+`;
   popupXP.textContent = `XP ${Number(item.xp) || 0}`;
   popupStopXP.textContent = `Stop XP ${Number(item.stopLevel) || 0}`;
   popupBP.textContent = item.blueprintRequired ? "Blueprint required" : "No blueprint needed";
-
-  popupMaterials.innerHTML = "";
-  const materialEntries = sortMaterialEntries(item.materials);
-
-  if (materialEntries.length === 0) {
-    const row = document.createElement("div");
-    row.className = "material-row empty-materials";
-    row.textContent = "No materials configured for this item.";
-    popupMaterials.appendChild(row);
-  } else {
-    const itemLookup = buildItemLookup(getItems());
-    renderMaterialTree({
-      container: popupMaterials,
-      materials: item.materials,
-      itemLookup,
-      depth: 0,
-      multiplier: 1,
-      ancestry: new Set([normalizeLookupKey(item.name)])
-    });
-  }
+  popupCraftQty.value = "1";
+  renderPopupMaterials(item, 1);
 
   popupElement.classList.remove("hidden");
   document.body.classList.add("no-scroll");
@@ -298,6 +319,7 @@ function closePopup() {
 
   popupElement.classList.add("hidden");
   document.body.classList.remove("no-scroll");
+  currentPopupItem = null;
 
   if (lastFocusedCard) {
     lastFocusedCard.focus();
@@ -344,6 +366,18 @@ if (categorySelect) {
 
 if (closePopupBtn) {
   closePopupBtn.addEventListener("click", closePopup);
+}
+
+if (popupCraftQty) {
+  popupCraftQty.addEventListener("input", () => {
+    if (!currentPopupItem) {
+      return;
+    }
+
+    const craftQuantity = getCraftQuantity();
+    popupCraftQty.value = String(craftQuantity);
+    renderPopupMaterials(currentPopupItem, craftQuantity);
+  });
 }
 
 if (popupElement) {
