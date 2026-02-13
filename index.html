@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>S2K Crafting</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrapper">
+  <h1>S2K Crafting</h1>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search item name...">
+    <select id="category">
+      <option value="all">All Items</option>
+      <option value="tools">Tools</option>
+      <option value="weapons">Weapons</option>
+      <option value="materials">Materials</option>
+    </select>
+  </div>
+
+  <div id="itemList" class="item-list"></div>
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup hidden">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">✕</span>
+    <h2 id="popupTitle"></h2>
+    <p id="popupLevel"></p>
+    <p id="popupBP"></p>
+    <div id="popupMaterials"></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
