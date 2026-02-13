@@ -216,6 +216,21 @@
     }
   },
   {
+    name: "Beretta M9A",
+    category: "weapons",
+    levelRequired: 25,
+    blueprintRequired: true,
+    xp: 15,
+    stopLevel: 4500,
+    materials: {
+      gunTrigger: 1,
+      pistolClip: 1,
+      pistolSlide: 1,
+      pistolGrip: 1,
+      titanium: 55
+    }
+  },
+  {
     name: "Desert Eagle",
     category: "weapons",
     levelRequired: 25,
