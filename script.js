@@ -12,6 +12,13 @@ const closePopupBtn = document.getElementById("closePopupBtn");
 
 let lastFocusedCard = null;
 
+function formatMaterialLabel(materialKey) {
+  return materialKey
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .toUpperCase();
+}
+
 function getItems() {
   if (typeof CONFIG_ITEMS === "undefined" || !Array.isArray(CONFIG_ITEMS)) {
     console.error("CONFIG_ITEMS is missing or invalid.");
@@ -55,6 +62,13 @@ function renderItems() {
   const items = getItems();
 
   itemList.innerHTML = "";
+
+  if (items.length === 0) {
+    updateResultCount(0, selectedCategory);
+    setActiveQuickFilter(selectedCategory);
+    renderEmptyState("No recipes loaded. Check config.js for errors, then hard refresh (Ctrl+F5).");
+    return;
+  }
 
   const filteredItems = items.filter(
     item =>
@@ -116,7 +130,7 @@ function openPopup(item) {
       row.className = "material-row";
 
       const materialName = document.createElement("span");
-      materialName.textContent = material.toUpperCase();
+      materialName.textContent = formatMaterialLabel(material);
 
       const materialAmount = document.createElement("span");
       materialAmount.textContent = String(amount);
