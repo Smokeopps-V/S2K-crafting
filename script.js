@@ -1,6 +1,5 @@
 const itemList = document.getElementById("itemList");
 const searchInput = document.getElementById("search");
-const categorySelect = document.getElementById("category");
 const quickFilterButtons = Array.from(document.querySelectorAll(".chip"));
 const resultCount = document.getElementById("resultCount");
 const popupElement = document.getElementById("popup");
@@ -11,6 +10,7 @@ const popupMaterials = document.getElementById("popupMaterials");
 const closePopupBtn = document.getElementById("closePopupBtn");
 
 let lastFocusedCard = null;
+let currentCategory = "all";
 
 function formatMaterialLabel(materialKey) {
   return materialKey
@@ -58,7 +58,7 @@ function setActiveQuickFilter(category) {
 
 function renderItems() {
   const searchValue = searchInput.value.trim().toLowerCase();
-  const selectedCategory = categorySelect.value;
+  const selectedCategory = currentCategory;
   const items = getItems();
 
   itemList.innerHTML = "";
@@ -172,14 +172,12 @@ itemList.addEventListener("click", event => {
 
 quickFilterButtons.forEach(button => {
   button.addEventListener("click", () => {
-    const category = button.dataset.category;
-    categorySelect.value = category;
+    currentCategory = button.dataset.category || "all";
     renderItems();
   });
 });
 
 searchInput.addEventListener("input", renderItems);
-categorySelect.addEventListener("change", renderItems);
 closePopupBtn.addEventListener("click", closePopup);
 
 popupElement.addEventListener("click", event => {
