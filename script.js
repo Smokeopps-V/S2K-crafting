@@ -38,6 +38,13 @@ const MATERIAL_KEY_ALIASES = {
 };
 const TOTAL_MATS_EXCLUDED_KEYS = new Set([
   "titanium",
+  "powersupply",
+  "brokenusb",
+  "circuitboard",
+  "controlchip",
+  "radio",
+  "brokentablet",
+  "brokenlaptop",
   "smgbarrel",
   "smgextractor",
   "smgmag",
@@ -324,7 +331,7 @@ function renderPopupMaterialTotals(item, craftQuantity) {
   }
 
   popupMaterialTotals.innerHTML = "";
-  const totalsMap = buildRawMaterialMapForItem(item, craftQuantity);
+  const totalsMap = buildRawMaterialMapForItem(item, craftQuantity, null, { excludeMaterialFn: shouldExcludeFromTotal });
   const entries = Object.entries(totalsMap).sort((a, b) => Number(b[1]) - Number(a[1]));
 
   if (entries.length === 0) {
