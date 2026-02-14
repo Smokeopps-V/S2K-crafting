@@ -22,8 +22,6 @@ const shoppingSummary = document.getElementById("shoppingSummary");
 const shoppingItemsContainer = document.getElementById("shoppingItems");
 const shoppingTotalsContainer = document.getElementById("shoppingTotals");
 const clearShoppingBtn = document.getElementById("clearShoppingBtn");
-const runValidationBtn = document.getElementById("runValidationBtn");
-const validationResults = document.getElementById("validationResults");
 
 let lastFocusedCard = null;
 let currentCategory = categorySelect ? categorySelect.value : "all";
@@ -554,97 +552,6 @@ function renderShoppingPanel() {
   renderShoppingTotals();
 }
 
-function validateConfig() {
-  const findings = [];
-  const items = getItems();
-  const itemLookup = buildItemLookup(items);
-  const seenNames = new Map();
-
-  items.forEach((item, index) => {
-    const itemLabel = item && item.name ? item.name : `Item #${index + 1}`;
-    const normalizedName = normalizeLookupKey(item && item.name ? item.name : "");
-    if (!normalizedName) {
-      findings.push({
-        level: "error",
-        text: `${itemLabel}: missing required name.`
-      });
-    } else if (seenNames.has(normalizedName)) {
-      findings.push({
-        level: "error",
-        text: `Duplicate item name: "${itemLabel}" also appears as "${seenNames.get(normalizedName)}".`
-      });
-    } else {
-      seenNames.set(normalizedName, itemLabel);
-    }
-
-    if (!item || !item.category) {
-      findings.push({
-        level: "error",
-        text: `${itemLabel}: missing category.`
-      });
-    }
-
-    if (!item || !item.materials || typeof item.materials !== "object" || Array.isArray(item.materials)) {
-      findings.push({
-        level: "error",
-        text: `${itemLabel}: materials must be an object.`
-      });
-      return;
-    }
-
-    Object.entries(item.materials).forEach(([materialKey, amount]) => {
-      const numericAmount = Number(amount);
-      if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
-        findings.push({
-          level: "warning",
-          text: `${itemLabel}: "${materialKey}" has invalid amount "${amount}".`
-        });
-      }
-
-      const normalizedMaterialKey = normalizeLookupKey(materialKey);
-      if (MATERIAL_KEY_ALIASES[normalizedMaterialKey]) {
-        findings.push({
-          level: "warning",
-          text: `${itemLabel}: "${materialKey}" should be "${MATERIAL_KEY_ALIASES[normalizedMaterialKey]}" for consistency.`
-        });
-      }
-
-      const looksCrafted = /(barrel|extractor|mag|trigger|assembly|spring|parts|grip|slide|clip|stock|receiver|housing|battery|drill|device|laptop|tablet|radio|lockpick|kit|bit)/i.test(materialKey);
-      if (looksCrafted && !findCraftableItem(materialKey, itemLookup)) {
-        findings.push({
-          level: "info",
-          text: `${itemLabel}: "${materialKey}" has no matching recipe entry (may be intentional).`
-        });
-      }
-    });
-  });
-
-  return findings;
-}
-
-function renderValidationResults() {
-  if (!validationResults) {
-    return;
-  }
-
-  const findings = validateConfig();
-  validationResults.innerHTML = "";
-
-  if (findings.length === 0) {
-    const ok = document.createElement("div");
-    ok.className = "validation-row is-ok";
-    ok.textContent = "No issues found.";
-    validationResults.appendChild(ok);
-    return;
-  }
-
-  findings.forEach(finding => {
-    const row = document.createElement("div");
-    row.className = `validation-row is-${finding.level}`;
-    row.textContent = finding.text;
-    validationResults.appendChild(row);
-  });
-}
 
 function renderEmptyState(message) {
   if (!itemList) {
@@ -997,10 +904,6 @@ if (clearShoppingBtn) {
   });
 }
 
-if (runValidationBtn) {
-  runValidationBtn.addEventListener("click", renderValidationResults);
-}
-
 if (popupElement) {
   popupElement.addEventListener("click", event => {
     if (event.target === popupElement) {
@@ -1021,7 +924,6 @@ if (hasRequiredDom()) {
     setBlueprintOnlyState(false);
     renderItems();
     renderShoppingPanel();
-    renderValidationResults();
   } catch (error) {
     console.error("Initial render failed:", error);
     renderEmptyState("Initial render failed. Open browser console for error details.");
