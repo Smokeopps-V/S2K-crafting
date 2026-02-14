@@ -499,7 +499,7 @@ function renderShoppingItems() {
     shoppingSummary.textContent = "No items in list yet.";
     const empty = document.createElement("div");
     empty.className = "empty-state";
-    empty.textContent = "Open an item and click 'Add to list' to build your shopping plan.";
+    empty.textContent = "Open an item and click 'Add to list' to build your crafting plan.";
     shoppingItemsContainer.appendChild(empty);
     return;
   }
@@ -947,7 +947,7 @@ if (addToListBtn) {
     addItemToShoppingList(currentPopupItem, getCraftQuantity());
     renderShoppingPanel();
     if (copyFeedback) {
-      copyFeedback.textContent = "Added to shopping list.";
+      copyFeedback.textContent = "Added to crafting list.";
     }
   });
 }
