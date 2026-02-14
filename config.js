@@ -455,7 +455,7 @@ const CONFIG_ITEMS = [
     }
   },
   {
-    name: "Moltov",
+    name: "Molotov",
     category: "weapons",
     levelRequired: 0,
     blueprintRequired: true,
