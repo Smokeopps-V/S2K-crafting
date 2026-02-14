@@ -11,6 +11,7 @@ const popupLevel = document.getElementById("popupLevel");
 const popupXP = document.getElementById("popupXP");
 const popupStopXP = document.getElementById("popupStopXP");
 const popupBP = document.getElementById("popupBP");
+const popupTotalMats = document.getElementById("popupTotalMats");
 const popupCraftQty = document.getElementById("popupCraftQty");
 const popupMaterials = document.getElementById("popupMaterials");
 const copyMaterialsBtn = document.getElementById("copyMaterialsBtn");
@@ -179,6 +180,18 @@ function getCraftQuantity() {
   return Math.max(1, Math.floor(rawValue));
 }
 
+function getTotalMaterials(item, craftQuantity) {
+  const qty = Number.isFinite(Number(craftQuantity)) ? Number(craftQuantity) : 1;
+  return Object.values(item && item.materials ? item.materials : {}).reduce((sum, value) => {
+    const amount = Number(value);
+    if (!Number.isFinite(amount)) {
+      return sum;
+    }
+
+    return sum + amount * qty;
+  }, 0);
+}
+
 function renderPopupMaterials(item, craftQuantity) {
   if (!popupMaterials) {
     return;
@@ -340,7 +353,7 @@ function renderItems() {
 }
 
 function openPopup(item) {
-  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupCraftQty || !popupMaterials || !closePopupBtn) {
+  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupTotalMats || !popupCraftQty || !popupMaterials || !closePopupBtn) {
     return;
   }
 
@@ -351,6 +364,7 @@ function openPopup(item) {
   popupStopXP.textContent = `Stop XP ${Number(item.stopLevel) || 0}`;
   popupBP.textContent = item.blueprintRequired ? "Blueprint required" : "No blueprint needed";
   popupCraftQty.value = "1";
+  popupTotalMats.textContent = `Total Mats ${getTotalMaterials(item, 1)}`;
   renderPopupMaterials(item, 1);
 
   popupElement.classList.remove("hidden");
@@ -516,6 +530,9 @@ if (popupCraftQty) {
 
     const craftQuantity = getCraftQuantity();
     popupCraftQty.value = String(craftQuantity);
+    if (popupTotalMats) {
+      popupTotalMats.textContent = `Total Mats ${getTotalMaterials(currentPopupItem, craftQuantity)}`;
+    }
     renderPopupMaterials(currentPopupItem, craftQuantity);
   });
 }
