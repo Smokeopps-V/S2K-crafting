@@ -1,6 +1,8 @@
 const itemList = document.getElementById("itemList");
 const searchInput = document.getElementById("search");
 const categorySelect = document.getElementById("category");
+const sortSelect = document.getElementById("sortBy");
+const blueprintOnlyBtn = document.getElementById("blueprintOnlyBtn");
 const quickFilterButtons = Array.from(document.querySelectorAll(".chip"));
 const resultCount = document.getElementById("resultCount");
 const popupElement = document.getElementById("popup");
@@ -11,11 +13,24 @@ const popupStopXP = document.getElementById("popupStopXP");
 const popupBP = document.getElementById("popupBP");
 const popupCraftQty = document.getElementById("popupCraftQty");
 const popupMaterials = document.getElementById("popupMaterials");
+const copyMaterialsBtn = document.getElementById("copyMaterialsBtn");
+const copyFeedback = document.getElementById("copyFeedback");
 const closePopupBtn = document.getElementById("closePopupBtn");
 
 let lastFocusedCard = null;
 let currentCategory = categorySelect ? categorySelect.value : "all";
 let currentPopupItem = null;
+let blueprintOnly = false;
+
+function setBlueprintOnlyState(isEnabled) {
+  blueprintOnly = Boolean(isEnabled);
+  if (!blueprintOnlyBtn) {
+    return;
+  }
+
+  blueprintOnlyBtn.classList.toggle("is-active", blueprintOnly);
+  blueprintOnlyBtn.setAttribute("aria-pressed", blueprintOnly ? "true" : "false");
+}
 
 function hasRequiredDom() {
   return Boolean(itemList && searchInput);
@@ -225,7 +240,8 @@ function updateResultCount(count, category) {
   }
 
   const itemLabel = count === 1 ? "item" : "items";
-  resultCount.textContent = `${count} ${itemLabel} shown in ${getCategoryLabel(category)}`;
+  const blueprintLabel = blueprintOnly ? " (Blueprint only)" : "";
+  resultCount.textContent = `${count} ${itemLabel} shown in ${getCategoryLabel(category)}${blueprintLabel}`;
 }
 
 function setActiveQuickFilter(category) {
@@ -260,13 +276,43 @@ function renderItems() {
     filteredItems = items.filter(
       item =>
         String(item.name || "").toLowerCase().includes(searchValue) &&
-        (selectedCategory === "all" || item.category === selectedCategory)
+        (selectedCategory === "all" || item.category === selectedCategory) &&
+        (!blueprintOnly || item.blueprintRequired === true)
     );
   } catch (error) {
     console.error("Failed to filter items:", error);
     renderEmptyState("Config loaded, but filtering failed. Check console for details.");
     return;
   }
+
+  const selectedSort = sortSelect ? sortSelect.value : "nameAsc";
+  filteredItems.sort((a, b) => {
+    const nameA = String(a.name || "");
+    const nameB = String(b.name || "");
+    const levelA = Number(a.levelRequired) || 0;
+    const levelB = Number(b.levelRequired) || 0;
+    const xpA = Number(a.xp) || 0;
+    const xpB = Number(b.xp) || 0;
+    const capA = Number(a.stopLevel) || 0;
+    const capB = Number(b.stopLevel) || 0;
+
+    switch (selectedSort) {
+      case "levelAsc":
+        return levelA - levelB || nameA.localeCompare(nameB);
+      case "levelDesc":
+        return levelB - levelA || nameA.localeCompare(nameB);
+      case "xpAsc":
+        return xpA - xpB || nameA.localeCompare(nameB);
+      case "xpDesc":
+        return xpB - xpA || nameA.localeCompare(nameB);
+      case "capAsc":
+        return capA - capB || nameA.localeCompare(nameB);
+      case "capDesc":
+        return capB - capA || nameA.localeCompare(nameB);
+      default:
+        return nameA.localeCompare(nameB);
+    }
+  });
 
   itemList.dataset.currentItems = JSON.stringify(filteredItems);
   updateResultCount(filteredItems.length, selectedCategory);
@@ -320,9 +366,81 @@ function closePopup() {
   popupElement.classList.add("hidden");
   document.body.classList.remove("no-scroll");
   currentPopupItem = null;
+  if (copyFeedback) {
+    copyFeedback.textContent = "";
+  }
 
   if (lastFocusedCard) {
     lastFocusedCard.focus();
+  }
+}
+
+function buildCopyMaterialText() {
+  if (!popupMaterials || !currentPopupItem) {
+    return "";
+  }
+
+  const rows = Array.from(popupMaterials.querySelectorAll(".material-row"));
+  if (rows.length === 0) {
+    return "";
+  }
+
+  const lines = [`${currentPopupItem.name} x${getCraftQuantity()}`];
+  rows.forEach(row => {
+    const spans = row.querySelectorAll("span");
+    if (spans.length < 2) {
+      return;
+    }
+
+    const depth = Number(row.style.getPropertyValue("--depth")) || 0;
+    const indent = "  ".repeat(Math.max(0, depth));
+    const label = spans[0].textContent ? spans[0].textContent.trim() : "";
+    const amount = spans[1].textContent ? spans[1].textContent.trim() : "";
+    if (label && amount) {
+      lines.push(`${indent}${label}: ${amount}`);
+    }
+  });
+
+  return lines.join("\n");
+}
+
+async function handleCopyMaterials() {
+  const text = buildCopyMaterialText();
+  if (!text) {
+    if (copyFeedback) {
+      copyFeedback.textContent = "Nothing to copy.";
+    }
+    return;
+  }
+
+  try {
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const fallback = document.createElement("textarea");
+      fallback.value = text;
+      fallback.setAttribute("readonly", "");
+      fallback.style.position = "fixed";
+      fallback.style.top = "-9999px";
+      document.body.appendChild(fallback);
+      fallback.focus();
+      fallback.select();
+      const copied = document.execCommand("copy");
+      document.body.removeChild(fallback);
+
+      if (!copied) {
+        throw new Error("document.execCommand('copy') returned false.");
+      }
+    }
+
+    if (copyFeedback) {
+      copyFeedback.textContent = "Materials copied.";
+    }
+  } catch (error) {
+    console.error("Clipboard write failed:", error);
+    if (copyFeedback) {
+      copyFeedback.textContent = "Copy failed. Clipboard permission may be blocked.";
+    }
   }
 }
 
@@ -364,6 +482,17 @@ if (categorySelect) {
   });
 }
 
+if (sortSelect) {
+  sortSelect.addEventListener("change", renderItems);
+}
+
+if (blueprintOnlyBtn) {
+  blueprintOnlyBtn.addEventListener("click", () => {
+    setBlueprintOnlyState(!blueprintOnly);
+    renderItems();
+  });
+}
+
 if (closePopupBtn) {
   closePopupBtn.addEventListener("click", closePopup);
 }
@@ -378,6 +507,10 @@ if (popupCraftQty) {
     popupCraftQty.value = String(craftQuantity);
     renderPopupMaterials(currentPopupItem, craftQuantity);
   });
+}
+
+if (copyMaterialsBtn) {
+  copyMaterialsBtn.addEventListener("click", handleCopyMaterials);
 }
 
 if (popupElement) {
@@ -396,6 +529,7 @@ document.addEventListener("keydown", event => {
 
 if (hasRequiredDom()) {
   try {
+    setBlueprintOnlyState(false);
     renderItems();
   } catch (error) {
     console.error("Initial render failed:", error);

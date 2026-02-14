@@ -24,6 +24,16 @@
       <option value="weapons">Weapons</option>
       <option value="materials">Materials</option>
     </select>
+    <select id="sortBy" aria-label="Sort items">
+      <option value="nameAsc">Sort: Name (A-Z)</option>
+      <option value="levelAsc">Sort: Level (Low-High)</option>
+      <option value="levelDesc">Sort: Level (High-Low)</option>
+      <option value="xpAsc">Sort: XP (Low-High)</option>
+      <option value="xpDesc">Sort: XP (High-Low)</option>
+      <option value="capAsc">Sort: XP Cap (Low-High)</option>
+      <option value="capDesc">Sort: XP Cap (High-Low)</option>
+    </select>
+    <button type="button" id="blueprintOnlyBtn" class="blueprint-chip" aria-pressed="false">Blueprint Only</button>
   </div>
 
   <div class="quick-filters" role="group" aria-label="Quick category filters">
@@ -50,7 +60,9 @@
     <div class="craft-qty-row">
       <label for="popupCraftQty">Craft amount</label>
       <input id="popupCraftQty" type="number" min="1" step="1" value="1" inputmode="numeric">
+      <button type="button" id="copyMaterialsBtn" class="copy-btn">Copy materials</button>
     </div>
+    <p id="copyFeedback" class="copy-feedback" aria-live="polite"></p>
     <h3 class="materials-title">Materials Needed</h3>
     <div id="popupMaterials"></div>
   </div>
