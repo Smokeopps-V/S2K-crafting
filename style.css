@@ -466,6 +466,54 @@ select:focus {
   font-size: 16px;
 }
 
+.materials-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.materials-head-hint {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.popup-material-totals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.popup-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(152, 174, 195, 0.2);
+  background: rgba(9, 15, 25, 0.55);
+}
+
+.popup-total-name {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.popup-total-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.empty-material-totals {
+  color: var(--muted);
+  font-size: 12px;
+}
+
 .craft-qty-row {
   margin-top: 14px;
   display: flex;

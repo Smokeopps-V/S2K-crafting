@@ -13,6 +13,7 @@ const popupStopXP = document.getElementById("popupStopXP");
 const popupBP = document.getElementById("popupBP");
 const popupTotalMats = document.getElementById("popupTotalMats");
 const popupCraftQty = document.getElementById("popupCraftQty");
+const popupMaterialTotals = document.getElementById("popupMaterialTotals");
 const popupMaterials = document.getElementById("popupMaterials");
 const addToListBtn = document.getElementById("addToListBtn");
 const copyMaterialsBtn = document.getElementById("copyMaterialsBtn");
@@ -247,6 +248,7 @@ function collectRawMaterialsRecursive(options) {
     multiplier,
     itemLookup,
     bucket,
+    excludeMaterialFn = null,
     ancestry = new Set(),
     maxDepth = 8,
     depth = 0
@@ -275,6 +277,7 @@ function collectRawMaterialsRecursive(options) {
           multiplier: scaledAmount,
           itemLookup,
           bucket,
+          excludeMaterialFn,
           ancestry: nextAncestry,
           maxDepth,
           depth: depth + 1
@@ -283,16 +286,17 @@ function collectRawMaterialsRecursive(options) {
       return;
     }
 
-    if (!shouldExcludeFromTotal(material)) {
+    if (!excludeMaterialFn || !excludeMaterialFn(material)) {
       const canonicalKey = canonicalMaterialKey(material);
       bucket[canonicalKey] = (bucket[canonicalKey] || 0) + scaledAmount;
     }
   });
 }
 
-function buildRawMaterialMapForItem(item, craftQuantity, sharedLookup) {
+function buildRawMaterialMapForItem(item, craftQuantity, sharedLookup, options = {}) {
   const qty = Number.isFinite(Number(craftQuantity)) ? Number(craftQuantity) : 1;
   const itemLookup = sharedLookup || buildItemLookup(getItems());
+  const { excludeMaterialFn = null } = options;
   const bucket = {};
 
   collectRawMaterialsRecursive({
@@ -300,6 +304,7 @@ function buildRawMaterialMapForItem(item, craftQuantity, sharedLookup) {
     multiplier: qty,
     itemLookup,
     bucket,
+    excludeMaterialFn,
     ancestry: new Set([normalizeLookupKey(item && item.name ? item.name : "")])
   });
 
@@ -307,10 +312,45 @@ function buildRawMaterialMapForItem(item, craftQuantity, sharedLookup) {
 }
 
 function getTotalMaterials(item, craftQuantity) {
-  return Object.values(buildRawMaterialMapForItem(item, craftQuantity)).reduce((sum, value) => {
+  return Object.values(buildRawMaterialMapForItem(item, craftQuantity, null, { excludeMaterialFn: shouldExcludeFromTotal })).reduce((sum, value) => {
     const numericValue = Number(value);
     return sum + (Number.isFinite(numericValue) ? numericValue : 0);
   }, 0);
+}
+
+function renderPopupMaterialTotals(item, craftQuantity) {
+  if (!popupMaterialTotals) {
+    return;
+  }
+
+  popupMaterialTotals.innerHTML = "";
+  const totalsMap = buildRawMaterialMapForItem(item, craftQuantity);
+  const entries = Object.entries(totalsMap).sort((a, b) => Number(b[1]) - Number(a[1]));
+
+  if (entries.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "empty-material-totals";
+    empty.textContent = "No combined totals available.";
+    popupMaterialTotals.appendChild(empty);
+    return;
+  }
+
+  entries.forEach(([materialKey, amount]) => {
+    const row = document.createElement("div");
+    row.className = "popup-total-row";
+
+    const name = document.createElement("span");
+    name.className = "popup-total-name";
+    name.textContent = formatMaterialLabel(materialKey);
+
+    const value = document.createElement("span");
+    value.className = "popup-total-value";
+    value.textContent = String(amount);
+
+    row.appendChild(name);
+    row.appendChild(value);
+    popupMaterialTotals.appendChild(row);
+  });
 }
 
 function renderPopupMaterials(item, craftQuantity) {
@@ -418,7 +458,7 @@ function buildCombinedShoppingTotals() {
       return;
     }
 
-    const materialMap = buildRawMaterialMapForItem(item, entry.qty, itemLookup);
+    const materialMap = buildRawMaterialMapForItem(item, entry.qty, itemLookup, { excludeMaterialFn: shouldExcludeFromTotal });
     Object.entries(materialMap).forEach(([materialKey, amount]) => {
       totals[materialKey] = (totals[materialKey] || 0) + amount;
     });
@@ -678,7 +718,7 @@ function renderItems() {
 }
 
 function openPopup(item) {
-  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupTotalMats || !popupCraftQty || !popupMaterials || !closePopupBtn) {
+  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupTotalMats || !popupCraftQty || !popupMaterialTotals || !popupMaterials || !closePopupBtn) {
     return;
   }
 
@@ -690,6 +730,7 @@ function openPopup(item) {
   popupBP.textContent = item.blueprintRequired ? "Blueprint required" : "No blueprint needed";
   popupCraftQty.value = "1";
   popupTotalMats.textContent = `Total Mats ${getTotalMaterials(item, 1)}`;
+  renderPopupMaterialTotals(item, 1);
   renderPopupMaterials(item, 1);
 
   popupElement.classList.remove("hidden");
@@ -858,6 +899,7 @@ if (popupCraftQty) {
     if (popupTotalMats) {
       popupTotalMats.textContent = `Total Mats ${getTotalMaterials(currentPopupItem, craftQuantity)}`;
     }
+    renderPopupMaterialTotals(currentPopupItem, craftQuantity);
     renderPopupMaterials(currentPopupItem, craftQuantity);
   });
 }

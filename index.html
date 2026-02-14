@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S2K Crafting</title>
-  <link rel="stylesheet" href="style.css?v=20260214-9">
+  <link rel="stylesheet" href="style.css?v=20260214-10">
 </head>
 <body>
 
@@ -84,12 +84,16 @@
       <button type="button" id="copyMaterialsBtn" class="copy-btn">Copy materials</button>
     </div>
     <p id="copyFeedback" class="copy-feedback" aria-live="polite"></p>
-    <h3 class="materials-title">Materials Needed</h3>
+    <div class="materials-head">
+      <h3 class="materials-title">Materials Needed</h3>
+      <span class="materials-head-hint">Combined totals</span>
+    </div>
+    <div id="popupMaterialTotals" class="popup-material-totals"></div>
     <div id="popupMaterials"></div>
   </div>
 </div>
 
 <script src="config.js?v=20260213-4"></script>
-<script src="script.js?v=20260214-4"></script>
+<script src="script.js?v=20260214-5"></script>
 </body>
 </html>
