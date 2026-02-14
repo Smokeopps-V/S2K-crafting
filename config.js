@@ -279,6 +279,24 @@ const CONFIG_ITEMS = [
     }
   },
   {
+    name: "Glock 45",
+    category: "weapons",
+    levelRequired: 35,
+    blueprintRequired: true,
+    xp: 15,
+    stopLevel: 6000,
+    materials: {
+      pistolClip: 1,
+      gunTrigger: 1,
+      pistolSlide: 1,
+      pistolGrip: 1,
+      scrap: 150,
+      plastic: 520,
+      aluminium: 220,
+      titanium: 75
+    }
+  },
+  {
     name: "AP Pistol",
     category: "weapons",
     levelRequired: 60,
@@ -347,6 +365,66 @@ const CONFIG_ITEMS = [
     }
   },
   {
+    name: "Magpull",
+    category: "weapons",
+    levelRequired: 0,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 6000,
+    materials: {
+      smgBarrel: 1,
+      boltAssembly: 1,
+      metalSpring: 1,
+      smgMag: 1,
+      smgExtractor: 1,
+      gunTrigger: 1,
+      scrap: 55,
+      plastic: 370,
+      aluminium: 100,
+      titanium: 190
+    }
+  },
+  {
+    name: "MCX",
+    category: "weapons",
+    levelRequired: 35,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 6000,
+    materials: {
+      smgExtractor: 1,
+      boltAssembly: 1,
+      smgMag: 1,
+      gunTrigger: 1,
+      metalSpring: 1,
+      smgBarrel: 1,
+      scrap: 55,
+      plastic: 370,
+      aluminium: 100,
+      titanium: 100
+    }
+  },
+  {
+    name: "Skorpion",
+    category: "weapons",
+    levelRequired: 45,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 6000,
+    materials: {
+      smgBarrel: 1,
+      boltAssembly: 1,
+      metalSpring: 1,
+      smgMag: 1,
+      smgExtractor: 1,
+      gunTrigger: 1,
+      plastic: 620,
+      scrap: 55,
+      aluminium: 100,
+      titanium: 100
+    }
+  },
+  {
     name: "Super Shorty",
     category: "weapons",
     levelRequired: 35,
@@ -374,6 +452,21 @@ const CONFIG_ITEMS = [
       gunTrigger: 1,
       titanium: 205,
       shotgunParts: 1
+    }
+  },
+  {
+    name: "Moltov",
+    category: "weapons",
+    levelRequired: 0,
+    blueprintRequired: true,
+    xp: 10,
+    stopLevel: 6000,
+    materials: {
+      glass: 300,
+      blackRussian: 5,
+      moscowMule: 5,
+      dirtyShirley: 5,
+      screwdriver: 5
     }
   },
   {
@@ -768,6 +861,21 @@ const CONFIG_ITEMS = [
     }
   },
   {
+    name: "Skimmer",
+    category: "tools",
+    levelRequired: 37,
+    blueprintRequired: true,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      steel: 75,
+      wire: 25,
+      scrap: 250,
+      electronics: 250,
+      rubber: 100
+    }
+  },
+  {
     name: "Info Laptop",
     category: "tools",
     levelRequired: 40,
@@ -885,6 +993,18 @@ const CONFIG_ITEMS = [
       mountChiliadAvalanche: 1,
       vinewoodStars: 1,
       vespucciBeachSharks: 1
+    }
+  },
+  {
+    name: "Pistol Ammo",
+    category: "materials",
+    levelRequired: 5,
+    blueprintRequired: true,
+    xp: 1,
+    stopLevel: 1200,
+    materials: {
+      scrap: 10,
+      gunpowder: 10
     }
   },
   {
@@ -1138,6 +1258,34 @@ const CONFIG_ITEMS = [
       scrap: 750,
       plastic: 750,
       titanium: 150
+    }
+  },
+  {
+    name: "Respray Can",
+    category: "tools",
+    levelRequired: 40,
+    blueprintRequired: true,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      plastic: 50,
+      aluminium: 50,
+      scrap: 50,
+      rubber: 50
+    }
+  },
+  {
+    name: "Spike",
+    category: "tools",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      aluminium: 500,
+      rubber: 500,
+      steel: 500,
+      plastic: 500
     }
   }
 ];
