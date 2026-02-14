@@ -27,6 +27,7 @@ const TOTAL_MATS_EXCLUDED_KEYS = new Set([
   "smgbarrel",
   "smgextractor",
   "smgmag",
+  "shotgunparts",
   "guntrigger",
   "boltassembly",
   "metalspring"
@@ -191,7 +192,11 @@ function getCraftQuantity() {
 
 function shouldExcludeFromTotal(materialKey) {
   const normalizedKey = normalizeLookupKey(materialKey);
-  return TOTAL_MATS_EXCLUDED_KEYS.has(normalizedKey) || normalizedKey.startsWith("pistol");
+  return (
+    TOTAL_MATS_EXCLUDED_KEYS.has(normalizedKey) ||
+    normalizedKey.startsWith("pistol") ||
+    normalizedKey.startsWith("ak")
+  );
 }
 
 function calculateTotalMatsRecursive(options) {
