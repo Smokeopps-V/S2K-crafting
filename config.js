@@ -1,4 +1,4 @@
-﻿const CONFIG_ITEMS = [
+const CONFIG_ITEMS = [
   {
     name: "Pistol Flashlight",
     category: "attachments",
@@ -439,7 +439,7 @@
     levelRequired: 2,
     blueprintRequired: true,
     xp: 15,
-    stopLevel: 60000,
+    stopLevel: 6000,
     materials: {
       scrap: 225,
       plastic: 150,
@@ -505,7 +505,7 @@
     }
   },
   {
-    name: "Golfclub",
+    name: "Golf Club",
     category: "tools",
     levelRequired: 10,
     blueprintRequired: false,
@@ -614,7 +614,7 @@
     levelRequired: 15,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60000,
+    stopLevel: 6000,
     materials: {
       glass: 375,
       brokenTablet: 1,
@@ -694,7 +694,7 @@
     levelRequired: 25,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60000,
+    stopLevel: 6000,
     materials: {
       circuitBoard: 1,
       brokenUsb: 1,
@@ -741,7 +741,7 @@
     levelRequired: 32,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60000,
+    stopLevel: 6000,
     materials: {
       circuitBoard: 5,
       scrap: 375,
@@ -760,7 +760,7 @@
     levelRequired: 37,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60000,
+    stopLevel: 6000,
     yields: 10,
     materials: {
       electronics: 30,
@@ -773,7 +773,7 @@
     levelRequired: 40,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60000,
+    stopLevel: 6000,
     materials: {
       glass: 750,
       powerSupply: 5,
@@ -792,7 +792,7 @@
     levelRequired: 40,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60000,
+    stopLevel: 6000,
     materials: {
       glass: 750,
       powerSupply: 5,
@@ -811,7 +811,7 @@
     levelRequired: 18,
     blueprintRequired: false,
     xp: 1,
-    stopLevel: 60000,
+    stopLevel: 6000,
     materials: {
       sewingThread: 75,
       leatherHide: 40
@@ -1006,7 +1006,7 @@
     xp: 25,
     stopLevel: 100,
     materials: {
-      alum: 150,
+      aluminium: 150,
       scrap: 380,
       steel: 150,
       titanium: 75
@@ -1070,7 +1070,7 @@
     stopLevel: 60,
     materials: {
       plastic: 120,
-      alum: 30,
+      aluminium: 30,
       scrap: 15
     }
   },
