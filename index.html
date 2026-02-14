@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S2K Crafting</title>
-  <link rel="stylesheet" href="style.css?v=20260214-7">
+  <link rel="stylesheet" href="style.css?v=20260214-8">
 </head>
 <body>
 
@@ -44,7 +44,33 @@
     <button type="button" id="blueprintOnlyBtn" class="blueprint-chip" aria-pressed="false">Blueprint Only</button>
   </div>
 
-  <div id="itemList" class="item-list"></div>
+  <div class="planner-grid">
+    <div id="itemList" class="item-list"></div>
+    <aside class="side-panel">
+      <section class="panel-block" aria-labelledby="shoppingTitle">
+        <div class="panel-head">
+          <h3 id="shoppingTitle">Shopping List</h3>
+          <button type="button" id="clearShoppingBtn" class="mini-btn">Clear</button>
+        </div>
+        <p id="shoppingSummary" class="panel-subtext">No items in list yet.</p>
+        <div id="shoppingItems" class="shopping-items"></div>
+      </section>
+
+      <section class="panel-block" aria-labelledby="totalsTitle">
+        <h3 id="totalsTitle">Combined Materials</h3>
+        <p class="panel-subtext">Enter owned stock to see remaining needs.</p>
+        <div id="shoppingTotals" class="shopping-totals"></div>
+      </section>
+
+      <section class="panel-block" aria-labelledby="validatorTitle">
+        <div class="panel-head">
+          <h3 id="validatorTitle">Config Validator</h3>
+          <button type="button" id="runValidationBtn" class="mini-btn">Run</button>
+        </div>
+        <div id="validationResults" class="validation-results"></div>
+      </section>
+    </aside>
+  </div>
 </div>
 
 <div id="popup" class="popup hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
@@ -61,6 +87,7 @@
     <div class="craft-qty-row">
       <label for="popupCraftQty">Craft amount</label>
       <input id="popupCraftQty" type="number" min="1" step="1" value="1" inputmode="numeric">
+      <button type="button" id="addToListBtn" class="copy-btn">Add to list</button>
       <button type="button" id="copyMaterialsBtn" class="copy-btn">Copy materials</button>
     </div>
     <p id="copyFeedback" class="copy-feedback" aria-live="polite"></p>
@@ -70,6 +97,6 @@
 </div>
 
 <script src="config.js?v=20260213-4"></script>
-<script src="script.js?v=20260214-2"></script>
+<script src="script.js?v=20260214-3"></script>
 </body>
 </html>

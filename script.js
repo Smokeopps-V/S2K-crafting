@@ -14,14 +14,29 @@ const popupBP = document.getElementById("popupBP");
 const popupTotalMats = document.getElementById("popupTotalMats");
 const popupCraftQty = document.getElementById("popupCraftQty");
 const popupMaterials = document.getElementById("popupMaterials");
+const addToListBtn = document.getElementById("addToListBtn");
 const copyMaterialsBtn = document.getElementById("copyMaterialsBtn");
 const copyFeedback = document.getElementById("copyFeedback");
 const closePopupBtn = document.getElementById("closePopupBtn");
+const shoppingSummary = document.getElementById("shoppingSummary");
+const shoppingItemsContainer = document.getElementById("shoppingItems");
+const shoppingTotalsContainer = document.getElementById("shoppingTotals");
+const clearShoppingBtn = document.getElementById("clearShoppingBtn");
+const runValidationBtn = document.getElementById("runValidationBtn");
+const validationResults = document.getElementById("validationResults");
 
 let lastFocusedCard = null;
 let currentCategory = categorySelect ? categorySelect.value : "all";
 let currentPopupItem = null;
 let blueprintOnly = false;
+let shoppingList = [];
+let ownedStock = {};
+const SHOPPING_STORAGE_KEY = "s2kShoppingList";
+const OWNED_STOCK_STORAGE_KEY = "s2kOwnedStock";
+const MATERIAL_KEY_ALIASES = {
+  alum: "aluminium",
+  aluminum: "aluminium"
+};
 const TOTAL_MATS_EXCLUDED_KEYS = new Set([
   "titanium",
   "smgbarrel",
@@ -58,6 +73,35 @@ function normalizeLookupKey(value) {
   return String(value || "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "");
+}
+
+function canonicalMaterialKey(materialKey) {
+  const raw = String(materialKey || "").trim();
+  const normalized = normalizeLookupKey(raw);
+  const canonical = MATERIAL_KEY_ALIASES[normalized];
+  return canonical || raw;
+}
+
+function readStorageJSON(key, fallbackValue) {
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) {
+      return fallbackValue;
+    }
+
+    return JSON.parse(raw);
+  } catch (error) {
+    console.error(`Failed to read localStorage key "${key}":`, error);
+    return fallbackValue;
+  }
+}
+
+function writeStorageJSON(key, value) {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.error(`Failed to write localStorage key "${key}":`, error);
+  }
 }
 
 function materialKeyToText(materialKey) {
@@ -191,7 +235,7 @@ function getCraftQuantity() {
 }
 
 function shouldExcludeFromTotal(materialKey) {
-  const normalizedKey = normalizeLookupKey(materialKey);
+  const normalizedKey = normalizeLookupKey(canonicalMaterialKey(materialKey));
   return (
     TOTAL_MATS_EXCLUDED_KEYS.has(normalizedKey) ||
     normalizedKey.startsWith("pistol") ||
@@ -199,24 +243,22 @@ function shouldExcludeFromTotal(materialKey) {
   );
 }
 
-function calculateTotalMatsRecursive(options) {
+function collectRawMaterialsRecursive(options) {
   const {
     materials,
     multiplier,
     itemLookup,
+    bucket,
     ancestry = new Set(),
     maxDepth = 8,
     depth = 0
   } = options;
 
   if (!materials || depth > maxDepth) {
-    return 0;
+    return;
   }
 
-  let total = 0;
-  const materialEntries = Object.entries(materials);
-
-  materialEntries.forEach(([material, amount]) => {
+  Object.entries(materials).forEach(([material, amount]) => {
     const numericAmount = Number(amount);
     if (!Number.isFinite(numericAmount)) {
       return;
@@ -230,10 +272,11 @@ function calculateTotalMatsRecursive(options) {
       if (!ancestry.has(childId)) {
         const nextAncestry = new Set(ancestry);
         nextAncestry.add(childId);
-        total += calculateTotalMatsRecursive({
+        collectRawMaterialsRecursive({
           materials: childItem.materials,
           multiplier: scaledAmount,
           itemLookup,
+          bucket,
           ancestry: nextAncestry,
           maxDepth,
           depth: depth + 1
@@ -243,22 +286,33 @@ function calculateTotalMatsRecursive(options) {
     }
 
     if (!shouldExcludeFromTotal(material)) {
-      total += scaledAmount;
+      const canonicalKey = canonicalMaterialKey(material);
+      bucket[canonicalKey] = (bucket[canonicalKey] || 0) + scaledAmount;
     }
   });
-
-  return total;
 }
 
-function getTotalMaterials(item, craftQuantity) {
+function buildRawMaterialMapForItem(item, craftQuantity, sharedLookup) {
   const qty = Number.isFinite(Number(craftQuantity)) ? Number(craftQuantity) : 1;
-  const itemLookup = buildItemLookup(getItems());
-  return calculateTotalMatsRecursive({
+  const itemLookup = sharedLookup || buildItemLookup(getItems());
+  const bucket = {};
+
+  collectRawMaterialsRecursive({
     materials: item && item.materials ? item.materials : {},
     multiplier: qty,
     itemLookup,
+    bucket,
     ancestry: new Set([normalizeLookupKey(item && item.name ? item.name : "")])
   });
+
+  return bucket;
+}
+
+function getTotalMaterials(item, craftQuantity) {
+  return Object.values(buildRawMaterialMapForItem(item, craftQuantity)).reduce((sum, value) => {
+    const numericValue = Number(value);
+    return sum + (Number.isFinite(numericValue) ? numericValue : 0);
+  }, 0);
 }
 
 function renderPopupMaterials(item, craftQuantity) {
@@ -295,6 +349,301 @@ function getItems() {
   }
 
   return CONFIG_ITEMS;
+}
+
+function hydratePlannerState() {
+  const persistedList = readStorageJSON(SHOPPING_STORAGE_KEY, []);
+  const persistedOwned = readStorageJSON(OWNED_STOCK_STORAGE_KEY, {});
+
+  shoppingList = Array.isArray(persistedList)
+    ? persistedList
+      .map(entry => ({
+        itemName: String(entry && entry.itemName ? entry.itemName : "").trim(),
+        qty: Math.max(1, Math.floor(Number(entry && entry.qty ? entry.qty : 1)))
+      }))
+      .filter(entry => entry.itemName)
+    : [];
+
+  ownedStock = persistedOwned && typeof persistedOwned === "object" && !Array.isArray(persistedOwned)
+    ? persistedOwned
+    : {};
+}
+
+function persistShoppingList() {
+  writeStorageJSON(SHOPPING_STORAGE_KEY, shoppingList);
+}
+
+function persistOwnedStock() {
+  writeStorageJSON(OWNED_STOCK_STORAGE_KEY, ownedStock);
+}
+
+function addItemToShoppingList(item, qty) {
+  if (!item || !item.name) {
+    return;
+  }
+
+  const quantity = Math.max(1, Math.floor(Number(qty) || 1));
+  const existing = shoppingList.find(entry => normalizeLookupKey(entry.itemName) === normalizeLookupKey(item.name));
+
+  if (existing) {
+    existing.qty += quantity;
+  } else {
+    shoppingList.push({
+      itemName: item.name,
+      qty: quantity
+    });
+  }
+
+  persistShoppingList();
+}
+
+function removeShoppingListItem(itemName) {
+  shoppingList = shoppingList.filter(entry => normalizeLookupKey(entry.itemName) !== normalizeLookupKey(itemName));
+  persistShoppingList();
+}
+
+function clearShoppingList() {
+  shoppingList = [];
+  ownedStock = {};
+  persistShoppingList();
+  persistOwnedStock();
+}
+
+function buildCombinedShoppingTotals() {
+  const totals = {};
+  const items = getItems();
+  const itemLookup = buildItemLookup(items);
+
+  shoppingList.forEach(entry => {
+    const item = itemLookup.get(normalizeLookupKey(entry.itemName));
+    if (!item) {
+      return;
+    }
+
+    const materialMap = buildRawMaterialMapForItem(item, entry.qty, itemLookup);
+    Object.entries(materialMap).forEach(([materialKey, amount]) => {
+      totals[materialKey] = (totals[materialKey] || 0) + amount;
+    });
+  });
+
+  return totals;
+}
+
+function getOwnedAmount(materialKey) {
+  const value = Number(ownedStock[materialKey]);
+  return Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
+}
+
+function setOwnedAmount(materialKey, value) {
+  const numericValue = Number(value);
+  const safeValue = Number.isFinite(numericValue) ? Math.max(0, Math.floor(numericValue)) : 0;
+  ownedStock[materialKey] = safeValue;
+  persistOwnedStock();
+  return safeValue;
+}
+
+function renderShoppingItems() {
+  if (!shoppingItemsContainer || !shoppingSummary) {
+    return;
+  }
+
+  shoppingItemsContainer.innerHTML = "";
+
+  if (shoppingList.length === 0) {
+    shoppingSummary.textContent = "No items in list yet.";
+    const empty = document.createElement("div");
+    empty.className = "empty-state";
+    empty.textContent = "Open an item and click 'Add to list' to build your shopping plan.";
+    shoppingItemsContainer.appendChild(empty);
+    return;
+  }
+
+  const totalCrafts = shoppingList.reduce((sum, entry) => sum + entry.qty, 0);
+  const craftLabel = totalCrafts === 1 ? "craft" : "crafts";
+  shoppingSummary.textContent = `${shoppingList.length} recipes, ${totalCrafts} ${craftLabel} total.`;
+
+  shoppingList.forEach(entry => {
+    const row = document.createElement("div");
+    row.className = "shopping-item-row";
+
+    const name = document.createElement("span");
+    name.className = "shopping-item-name";
+    name.textContent = `${entry.itemName} x${entry.qty}`;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "mini-btn";
+    removeBtn.dataset.removeItem = entry.itemName;
+    removeBtn.textContent = "Remove";
+
+    row.appendChild(name);
+    row.appendChild(removeBtn);
+    shoppingItemsContainer.appendChild(row);
+  });
+}
+
+function renderShoppingTotals() {
+  if (!shoppingTotalsContainer) {
+    return;
+  }
+
+  shoppingTotalsContainer.innerHTML = "";
+  const totals = buildCombinedShoppingTotals();
+  const totalEntries = Object.entries(totals).sort((a, b) => Number(b[1]) - Number(a[1]));
+
+  if (totalEntries.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "empty-state";
+    empty.textContent = "Combined materials will appear here.";
+    shoppingTotalsContainer.appendChild(empty);
+    return;
+  }
+
+  totalEntries.forEach(([materialKey, amount]) => {
+    const row = document.createElement("div");
+    row.className = "shopping-total-row";
+
+    const name = document.createElement("span");
+    name.className = "shopping-total-name";
+    name.textContent = formatMaterialLabel(materialKey);
+
+    const values = document.createElement("div");
+    values.className = "shopping-total-values";
+
+    const totalAmount = document.createElement("span");
+    totalAmount.className = "shopping-total-amount";
+    totalAmount.textContent = `Total ${amount}`;
+
+    const ownedInput = document.createElement("input");
+    ownedInput.type = "number";
+    ownedInput.min = "0";
+    ownedInput.step = "1";
+    ownedInput.inputMode = "numeric";
+    ownedInput.className = "owned-input";
+    ownedInput.value = String(getOwnedAmount(materialKey));
+    ownedInput.setAttribute("aria-label", `Owned ${formatMaterialLabel(materialKey)}`);
+
+    const needAmount = document.createElement("span");
+    needAmount.className = "shopping-need-amount";
+
+    const refreshNeedText = () => {
+      const owned = getOwnedAmount(materialKey);
+      const needed = Math.max(0, amount - owned);
+      needAmount.textContent = `Need ${needed}`;
+    };
+
+    ownedInput.addEventListener("input", () => {
+      const safeValue = setOwnedAmount(materialKey, ownedInput.value);
+      ownedInput.value = String(safeValue);
+      refreshNeedText();
+    });
+
+    refreshNeedText();
+
+    values.appendChild(totalAmount);
+    values.appendChild(ownedInput);
+    values.appendChild(needAmount);
+    row.appendChild(name);
+    row.appendChild(values);
+    shoppingTotalsContainer.appendChild(row);
+  });
+}
+
+function renderShoppingPanel() {
+  renderShoppingItems();
+  renderShoppingTotals();
+}
+
+function validateConfig() {
+  const findings = [];
+  const items = getItems();
+  const itemLookup = buildItemLookup(items);
+  const seenNames = new Map();
+
+  items.forEach((item, index) => {
+    const itemLabel = item && item.name ? item.name : `Item #${index + 1}`;
+    const normalizedName = normalizeLookupKey(item && item.name ? item.name : "");
+    if (!normalizedName) {
+      findings.push({
+        level: "error",
+        text: `${itemLabel}: missing required name.`
+      });
+    } else if (seenNames.has(normalizedName)) {
+      findings.push({
+        level: "error",
+        text: `Duplicate item name: "${itemLabel}" also appears as "${seenNames.get(normalizedName)}".`
+      });
+    } else {
+      seenNames.set(normalizedName, itemLabel);
+    }
+
+    if (!item || !item.category) {
+      findings.push({
+        level: "error",
+        text: `${itemLabel}: missing category.`
+      });
+    }
+
+    if (!item || !item.materials || typeof item.materials !== "object" || Array.isArray(item.materials)) {
+      findings.push({
+        level: "error",
+        text: `${itemLabel}: materials must be an object.`
+      });
+      return;
+    }
+
+    Object.entries(item.materials).forEach(([materialKey, amount]) => {
+      const numericAmount = Number(amount);
+      if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
+        findings.push({
+          level: "warning",
+          text: `${itemLabel}: "${materialKey}" has invalid amount "${amount}".`
+        });
+      }
+
+      const normalizedMaterialKey = normalizeLookupKey(materialKey);
+      if (MATERIAL_KEY_ALIASES[normalizedMaterialKey]) {
+        findings.push({
+          level: "warning",
+          text: `${itemLabel}: "${materialKey}" should be "${MATERIAL_KEY_ALIASES[normalizedMaterialKey]}" for consistency.`
+        });
+      }
+
+      const looksCrafted = /(barrel|extractor|mag|trigger|assembly|spring|parts|grip|slide|clip|stock|receiver|housing|battery|drill|device|laptop|tablet|radio|lockpick|kit|bit)/i.test(materialKey);
+      if (looksCrafted && !findCraftableItem(materialKey, itemLookup)) {
+        findings.push({
+          level: "info",
+          text: `${itemLabel}: "${materialKey}" has no matching recipe entry (may be intentional).`
+        });
+      }
+    });
+  });
+
+  return findings;
+}
+
+function renderValidationResults() {
+  if (!validationResults) {
+    return;
+  }
+
+  const findings = validateConfig();
+  validationResults.innerHTML = "";
+
+  if (findings.length === 0) {
+    const ok = document.createElement("div");
+    ok.className = "validation-row is-ok";
+    ok.textContent = "No issues found.";
+    validationResults.appendChild(ok);
+    return;
+  }
+
+  findings.forEach(finding => {
+    const row = document.createElement("div");
+    row.className = `validation-row is-${finding.level}`;
+    row.textContent = finding.text;
+    validationResults.appendChild(row);
+  });
 }
 
 function renderEmptyState(message) {
@@ -606,8 +955,50 @@ if (popupCraftQty) {
   });
 }
 
+if (addToListBtn) {
+  addToListBtn.addEventListener("click", () => {
+    if (!currentPopupItem) {
+      return;
+    }
+
+    addItemToShoppingList(currentPopupItem, getCraftQuantity());
+    renderShoppingPanel();
+    if (copyFeedback) {
+      copyFeedback.textContent = "Added to shopping list.";
+    }
+  });
+}
+
 if (copyMaterialsBtn) {
   copyMaterialsBtn.addEventListener("click", handleCopyMaterials);
+}
+
+if (shoppingItemsContainer) {
+  shoppingItemsContainer.addEventListener("click", event => {
+    const removeButton = event.target.closest("[data-remove-item]");
+    if (!removeButton) {
+      return;
+    }
+
+    const itemName = removeButton.dataset.removeItem;
+    if (!itemName) {
+      return;
+    }
+
+    removeShoppingListItem(itemName);
+    renderShoppingPanel();
+  });
+}
+
+if (clearShoppingBtn) {
+  clearShoppingBtn.addEventListener("click", () => {
+    clearShoppingList();
+    renderShoppingPanel();
+  });
+}
+
+if (runValidationBtn) {
+  runValidationBtn.addEventListener("click", renderValidationResults);
 }
 
 if (popupElement) {
@@ -626,8 +1017,11 @@ document.addEventListener("keydown", event => {
 
 if (hasRequiredDom()) {
   try {
+    hydratePlannerState();
     setBlueprintOnlyState(false);
     renderItems();
+    renderShoppingPanel();
+    renderValidationResults();
   } catch (error) {
     console.error("Initial render failed:", error);
     renderEmptyState("Initial render failed. Open browser console for error details.");
