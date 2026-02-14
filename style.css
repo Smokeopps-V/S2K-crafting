@@ -266,6 +266,11 @@ select:focus {
   font-size: 12px;
 }
 
+.panel-subtext-strong {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
 .mini-btn {
   appearance: none;
   -webkit-appearance: none;

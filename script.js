@@ -21,6 +21,7 @@ const copyFeedback = document.getElementById("copyFeedback");
 const closePopupBtn = document.getElementById("closePopupBtn");
 const shoppingSummary = document.getElementById("shoppingSummary");
 const shoppingItemsContainer = document.getElementById("shoppingItems");
+const shoppingTotalsSummary = document.getElementById("shoppingTotalsSummary");
 const shoppingTotalsContainer = document.getElementById("shoppingTotals");
 const clearShoppingBtn = document.getElementById("clearShoppingBtn");
 
@@ -535,8 +536,13 @@ function renderShoppingTotals() {
   shoppingTotalsContainer.innerHTML = "";
   const totals = buildCombinedShoppingTotals();
   const totalEntries = Object.entries(totals).sort((a, b) => Number(b[1]) - Number(a[1]));
+  let rawTotal = 0;
+  let needTotal = 0;
 
   if (totalEntries.length === 0) {
+    if (shoppingTotalsSummary) {
+      shoppingTotalsSummary.textContent = "Raw Total 0 | Need Total 0";
+    }
     const empty = document.createElement("div");
     empty.className = "empty-state";
     empty.textContent = "Combined materials will appear here.";
@@ -545,6 +551,7 @@ function renderShoppingTotals() {
   }
 
   totalEntries.forEach(([materialKey, amount]) => {
+    rawTotal += amount;
     const row = document.createElement("div");
     row.className = "shopping-total-row";
 
@@ -575,15 +582,16 @@ function renderShoppingTotals() {
       const owned = getOwnedAmount(materialKey);
       const needed = Math.max(0, amount - owned);
       needAmount.textContent = `Need ${needed}`;
+      return needed;
     };
 
     ownedInput.addEventListener("input", () => {
       const safeValue = setOwnedAmount(materialKey, ownedInput.value);
       ownedInput.value = String(safeValue);
-      refreshNeedText();
+      renderShoppingTotals();
     });
 
-    refreshNeedText();
+    needTotal += refreshNeedText();
 
     values.appendChild(totalAmount);
     values.appendChild(ownedInput);
@@ -592,6 +600,10 @@ function renderShoppingTotals() {
     row.appendChild(values);
     shoppingTotalsContainer.appendChild(row);
   });
+
+  if (shoppingTotalsSummary) {
+    shoppingTotalsSummary.textContent = `Raw Total ${rawTotal} | Need Total ${needTotal}`;
+  }
 }
 
 function renderShoppingPanel() {
