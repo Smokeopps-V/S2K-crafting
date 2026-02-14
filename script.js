@@ -414,9 +414,17 @@ async function handleCopyMaterials() {
   }
 
   try {
-    if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+    if (window.isSecureContext && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
       await navigator.clipboard.writeText(text);
     } else {
+      throw new Error("Clipboard API unavailable in this context.");
+    }
+
+    if (copyFeedback) {
+      copyFeedback.textContent = "Materials copied.";
+    }
+  } catch (error) {
+    try {
       const fallback = document.createElement("textarea");
       fallback.value = text;
       fallback.setAttribute("readonly", "");
@@ -425,21 +433,24 @@ async function handleCopyMaterials() {
       document.body.appendChild(fallback);
       fallback.focus();
       fallback.select();
+      fallback.setSelectionRange(0, fallback.value.length);
       const copied = document.execCommand("copy");
       document.body.removeChild(fallback);
 
       if (!copied) {
         throw new Error("document.execCommand('copy') returned false.");
       }
-    }
 
-    if (copyFeedback) {
-      copyFeedback.textContent = "Materials copied.";
-    }
-  } catch (error) {
-    console.error("Clipboard write failed:", error);
-    if (copyFeedback) {
-      copyFeedback.textContent = "Copy failed. Clipboard permission may be blocked.";
+      if (copyFeedback) {
+        copyFeedback.textContent = "Materials copied.";
+      }
+    } catch (fallbackError) {
+      console.error("Clipboard write failed:", error);
+      console.error("Clipboard fallback failed:", fallbackError);
+      if (copyFeedback) {
+        copyFeedback.textContent = "Auto-copy blocked. Showing manual copy dialog.";
+      }
+      window.prompt("Copy materials (Ctrl+C, Enter):", text);
     }
   }
 }
