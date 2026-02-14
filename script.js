@@ -22,6 +22,15 @@ let lastFocusedCard = null;
 let currentCategory = categorySelect ? categorySelect.value : "all";
 let currentPopupItem = null;
 let blueprintOnly = false;
+const TOTAL_MATS_EXCLUDED_KEYS = new Set([
+  "titanium",
+  "smgbarrel",
+  "smgextractor",
+  "smgmag",
+  "guntrigger",
+  "boltassembly",
+  "metalspring"
+]);
 
 function setBlueprintOnlyState(isEnabled) {
   blueprintOnly = Boolean(isEnabled);
@@ -180,16 +189,71 @@ function getCraftQuantity() {
   return Math.max(1, Math.floor(rawValue));
 }
 
-function getTotalMaterials(item, craftQuantity) {
-  const qty = Number.isFinite(Number(craftQuantity)) ? Number(craftQuantity) : 1;
-  return Object.values(item && item.materials ? item.materials : {}).reduce((sum, value) => {
-    const amount = Number(value);
-    if (!Number.isFinite(amount)) {
-      return sum;
+function shouldExcludeFromTotal(materialKey) {
+  const normalizedKey = normalizeLookupKey(materialKey);
+  return TOTAL_MATS_EXCLUDED_KEYS.has(normalizedKey) || normalizedKey.startsWith("pistol");
+}
+
+function calculateTotalMatsRecursive(options) {
+  const {
+    materials,
+    multiplier,
+    itemLookup,
+    ancestry = new Set(),
+    maxDepth = 8,
+    depth = 0
+  } = options;
+
+  if (!materials || depth > maxDepth) {
+    return 0;
+  }
+
+  let total = 0;
+  const materialEntries = Object.entries(materials);
+
+  materialEntries.forEach(([material, amount]) => {
+    const numericAmount = Number(amount);
+    if (!Number.isFinite(numericAmount)) {
+      return;
     }
 
-    return sum + amount * qty;
-  }, 0);
+    const scaledAmount = numericAmount * multiplier;
+    const childItem = findCraftableItem(material, itemLookup);
+
+    if (childItem && childItem.materials) {
+      const childId = normalizeLookupKey(childItem.name);
+      if (!ancestry.has(childId)) {
+        const nextAncestry = new Set(ancestry);
+        nextAncestry.add(childId);
+        total += calculateTotalMatsRecursive({
+          materials: childItem.materials,
+          multiplier: scaledAmount,
+          itemLookup,
+          ancestry: nextAncestry,
+          maxDepth,
+          depth: depth + 1
+        });
+      }
+      return;
+    }
+
+    if (!shouldExcludeFromTotal(material)) {
+      total += scaledAmount;
+    }
+  });
+
+  return total;
+}
+
+function getTotalMaterials(item, craftQuantity) {
+  const qty = Number.isFinite(Number(craftQuantity)) ? Number(craftQuantity) : 1;
+  const itemLookup = buildItemLookup(getItems());
+  return calculateTotalMatsRecursive({
+    materials: item && item.materials ? item.materials : {},
+    multiplier: qty,
+    itemLookup,
+    ancestry: new Set([normalizeLookupKey(item && item.name ? item.name : "")])
+  });
 }
 
 function renderPopupMaterials(item, craftQuantity) {
