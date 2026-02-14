@@ -425,6 +425,7 @@ select:focus {
   padding: 20px;
   background: rgba(3, 6, 11, 0.72);
   backdrop-filter: blur(6px);
+  overflow-y: auto;
 }
 
 .hidden {
@@ -433,6 +434,8 @@ select:focus {
 
 .popup-content {
   width: min(100%, 480px);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
   border-radius: 16px;
   border: 1px solid var(--border);
   background: linear-gradient(180deg, #111c2c, #0e1726);
@@ -669,5 +672,17 @@ select:focus {
 
   .owned-input {
     min-width: 88px;
+  }
+}
+
+@media (max-height: 780px) {
+  .popup {
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .popup-content {
+    max-height: calc(100vh - 24px);
+    padding: 18px 16px;
   }
 }
