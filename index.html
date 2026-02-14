@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S2K Crafting</title>
-  <link rel="stylesheet" href="style.css?v=20260214-12">
+  <link rel="stylesheet" href="style.css?v=20260214-13">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
   </header>
 
   <div class="controls">
-    <input type="text" id="search" placeholder="Search item name...">
+    <input type="text" id="search" placeholder="Search item name..." aria-label="Search item name" autocomplete="off">
     <select id="category" aria-label="Filter by category">
       <option value="all">All Items</option>
       <option value="attachments">Attachments</option>
@@ -52,8 +52,8 @@
           <h3 id="shoppingTitle">Shopping List</h3>
           <button type="button" id="clearShoppingBtn" class="mini-btn">Clear</button>
         </div>
-        <p id="shoppingSummary" class="panel-subtext">No items in list yet.</p>
-        <div id="shoppingItems" class="shopping-items"></div>
+        <p id="shoppingSummary" class="panel-subtext" aria-live="polite">No items in list yet.</p>
+        <div id="shoppingItems" class="shopping-items" aria-live="polite"></div>
       </section>
 
       <section class="panel-block" aria-labelledby="totalsTitle">
@@ -95,6 +95,6 @@
 </div>
 
 <script src="config.js?v=20260213-4"></script>
-<script src="script.js?v=20260214-7"></script>
+<script src="script.js?v=20260214-8"></script>
 </body>
 </html>

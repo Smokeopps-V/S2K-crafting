@@ -725,13 +725,25 @@ function renderItems() {
     card.type = "button";
     card.className = "item-card";
     card.dataset.itemIndex = String(index);
-    card.innerHTML = `
-      <h3 class="item-card-title">${item.name}</h3>
-      <div class="item-card-meta">
-        <span>Level ${item.levelRequired}+</span>
-        <span class="card-badge">${item.category}</span>
-      </div>
-    `;
+
+    const title = document.createElement("h3");
+    title.className = "item-card-title";
+    title.textContent = String(item.name || "");
+
+    const meta = document.createElement("div");
+    meta.className = "item-card-meta";
+
+    const level = document.createElement("span");
+    level.textContent = `Level ${Number(item.levelRequired) || 0}+`;
+
+    const badge = document.createElement("span");
+    badge.className = "card-badge";
+    badge.textContent = String(item.category || "uncategorized");
+
+    meta.appendChild(level);
+    meta.appendChild(badge);
+    card.appendChild(title);
+    card.appendChild(meta);
     itemList.appendChild(card);
   });
 }
@@ -751,6 +763,9 @@ function openPopup(item) {
   popupTotalMats.textContent = `Total Mats ${getTotalMaterials(item, 1)}`;
   renderPopupMaterialTotals(item, 1);
   renderPopupMaterials(item, 1);
+  if (copyFeedback) {
+    copyFeedback.textContent = "";
+  }
 
   popupElement.classList.remove("hidden");
   document.body.classList.add("no-scroll");
@@ -974,6 +989,10 @@ if (popupElement) {
 }
 
 document.addEventListener("keydown", event => {
+  if (!popupElement) {
+    return;
+  }
+
   if (event.key === "Escape" && !popupElement.classList.contains("hidden")) {
     closePopup();
   }
