@@ -11,7 +11,7 @@ const popupLevel = document.getElementById("popupLevel");
 const popupXP = document.getElementById("popupXP");
 const popupStopXP = document.getElementById("popupStopXP");
 const popupBP = document.getElementById("popupBP");
-const popupTotalMats = document.getElementById("popupTotalMats");
+const popupMaterialsHint = document.getElementById("popupMaterialsHint");
 const popupCraftQty = document.getElementById("popupCraftQty");
 const popupMaterialTotals = document.getElementById("popupMaterialTotals");
 const popupMaterials = document.getElementById("popupMaterials");
@@ -324,6 +324,14 @@ function getTotalMaterials(item, craftQuantity) {
     const numericValue = Number(value);
     return sum + (Number.isFinite(numericValue) ? numericValue : 0);
   }, 0);
+}
+
+function updatePopupMaterialsHint(item, craftQuantity) {
+  if (!popupMaterialsHint) {
+    return;
+  }
+
+  popupMaterialsHint.textContent = `Combined totals | Total Mats ${getTotalMaterials(item, craftQuantity)}`;
 }
 
 function renderPopupMaterialTotals(item, craftQuantity) {
@@ -749,7 +757,7 @@ function renderItems() {
 }
 
 function openPopup(item) {
-  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupTotalMats || !popupCraftQty || !popupMaterialTotals || !popupMaterials || !closePopupBtn) {
+  if (!popupElement || !popupTitle || !popupLevel || !popupXP || !popupStopXP || !popupBP || !popupCraftQty || !popupMaterialTotals || !popupMaterials || !closePopupBtn) {
     return;
   }
 
@@ -760,7 +768,7 @@ function openPopup(item) {
   popupStopXP.textContent = `Stop XP ${Number(item.stopLevel) || 0}`;
   popupBP.textContent = item.blueprintRequired ? "Blueprint required" : "No blueprint needed";
   popupCraftQty.value = "1";
-  popupTotalMats.textContent = `Total Mats ${getTotalMaterials(item, 1)}`;
+  updatePopupMaterialsHint(item, 1);
   renderPopupMaterialTotals(item, 1);
   renderPopupMaterials(item, 1);
   if (copyFeedback) {
@@ -930,9 +938,7 @@ if (popupCraftQty) {
 
     const craftQuantity = getCraftQuantity();
     popupCraftQty.value = String(craftQuantity);
-    if (popupTotalMats) {
-      popupTotalMats.textContent = `Total Mats ${getTotalMaterials(currentPopupItem, craftQuantity)}`;
-    }
+    updatePopupMaterialsHint(currentPopupItem, craftQuantity);
     renderPopupMaterialTotals(currentPopupItem, craftQuantity);
     renderPopupMaterials(currentPopupItem, craftQuantity);
   });
