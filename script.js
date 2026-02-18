@@ -38,7 +38,6 @@ const MATERIAL_KEY_ALIASES = {
   aluminum: "aluminium"
 };
 const TOTAL_MATS_EXCLUDED_KEYS = new Set([
-  "titanium",
   "powersupply",
   "brokenusb",
   "circuitboard",
