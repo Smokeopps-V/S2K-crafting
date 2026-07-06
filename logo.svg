@@ -1,13 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="MDNT Crafting logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" role="img" aria-label="MDNT Crafting logo">
   <defs>
-    <radialGradient id="grad" cx="50%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#d8afff" />
-      <stop offset="100%" stop-color="#3e0d7f" />
+    <radialGradient id="purpleGlow" cx="50%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#f9e1ff" />
+      <stop offset="50%" stop-color="#a24dff" />
+      <stop offset="100%" stop-color="#39026a" />
     </radialGradient>
+    <linearGradient id="shadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6b2fe2" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#1a0025" stop-opacity="0.75" />
+    </linearGradient>
   </defs>
-  <rect width="240" height="240" rx="32" fill="#0a0214" />
-  <path d="M60 60 C80 30 160 30 180 60 C200 90 170 140 120 190 C70 140 40 90 60 60 Z" fill="url(#grad)" opacity="0.95" />
-  <path d="M80 130 C95 120 145 120 160 130" fill="none" stroke="#f2d9ff" stroke-width="14" stroke-linecap="round" />
-  <path d="M92 100 L112 82 M148 100 L128 82" fill="none" stroke="#f2d9ff" stroke-width="14" stroke-linecap="round" />
-  <circle cx="120" cy="90" r="10" fill="#fff" opacity="0.9" />
+  <rect width="280" height="280" rx="40" fill="#0a0214" />
+  <g transform="translate(20 18)">
+    <path d="M140 20 C170 20 190 45 200 80 C212 120 180 160 160 190 C195 180 220 150 225 115 C230 90 210 70 205 52 C200 38 188 25 170 24 C165 22 155 18 140 20 Z" fill="url(#purpleGlow)" opacity="0.95" />
+    <path d="M100 22 C80 12 52 26 50 66 C48 96 72 130 92 158 C58 132 28 90 34 52 C40 20 70 6 96 22 Z" fill="url(#purpleGlow)" opacity="0.95" />
+    <path d="M80 90 C80 80 92 70 110 70 C128 70 140 80 140 90 C140 98 132 104 120 104 C108 104 100 98 100 90 Z" fill="#ffffff" opacity="0.92" />
+    <path d="M160 90 C160 80 172 70 190 70 C208 70 220 80 220 90 C220 98 212 104 200 104 C188 104 180 98 180 90 Z" fill="#ffffff" opacity="0.92" />
+    <path d="M105 112 C120 130 160 130 175 112" fill="none" stroke="#f6ccff" stroke-width="14" stroke-linecap="round" />
+    <path d="M90 72 C64 85 54 106 58 130 C62 152 92 170 120 180 C80 170 52 134 50 104 C49 84 60 70 86 60" fill="none" stroke="#b577ff" stroke-width="12" opacity="0.75" />
+    <path d="M190 72 C216 85 226 106 222 130 C218 152 188 170 160 180 C200 170 228 134 230 104 C231 84 220 70 194 60" fill="none" stroke="#b577ff" stroke-width="12" opacity="0.75" />
+    <path d="M90 45 L80 10 L66 24 L82 46" fill="#fff" opacity="0.6" />
+    <path d="M190 45 L200 10 L214 24 L198 46" fill="#fff" opacity="0.6" />
+    <path d="M0 220 C20 170 70 160 90 185 C110 160 170 158 190 184 C210 158 260 168 280 220" fill="url(#shadow)" opacity="0.7" />
+  </g>
+  <text x="140" y="260" text-anchor="middle" font-family="Chakra Petch, sans-serif" font-size="38" fill="#f2d9ff" letter-spacing="3">MDNT</text>
 </svg>
