@@ -1536,7 +1536,7 @@ const CONFIG_ITEMS = [
       rifleGrip: 1,
       steelPlate: 8,
       metalSpring: 1,
-      titanium: 150,
+      titanium: 360,
       gunTrigger: 1
     }
   },
@@ -1552,7 +1552,8 @@ const CONFIG_ITEMS = [
       boltAssembly: 1,
       rifleReceiver: 1,
       rifleStock: 1,
-      rifleBarrel: 1
+      rifleBarrel: 1,
+      titanium: 360
     }
   },
   {
@@ -1567,7 +1568,7 @@ const CONFIG_ITEMS = [
       gunTrigger: 1,
       metalSpring: 1,
       steelPlate: 8,
-      titanium: 150
+      titanium: 360
     }
   },
   {
@@ -1582,7 +1583,7 @@ const CONFIG_ITEMS = [
       gunTrigger: 1,
       metalSpring: 1,
       steelPlate: 8,
-      titanium: 150
+      titanium: 360
     }
   },
   {
@@ -1630,7 +1631,7 @@ const CONFIG_ITEMS = [
     xp: 1,
     stopLevel: 6000,
     materials: {
-      steelBar: 50
+      steelBar: 10
     }
   },
   {
@@ -1748,7 +1749,7 @@ const CONFIG_ITEMS = [
       rifleGrip: 1,
       steelPlate: 4,
       metalSpring: 1,
-      titanium: 225,
+      titanium: 375,
       gunTrigger: 1
     }
   },

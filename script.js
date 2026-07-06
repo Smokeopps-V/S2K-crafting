@@ -44,7 +44,15 @@ const TOTAL_MATS_EXCLUDED_KEYS = new Set([
   "shotgunparts",
   "guntrigger",
   "boltassembly",
-  "metalspring"
+  "metalspring",
+  "steelbar",
+  "titanium",
+  "circuitboard",
+  "controlchip",
+  "powersupply",
+  "radio",
+  "brokenusb",
+  "brokenvpn"
 ]);
 
 function setBlueprintOnlyState(isEnabled) {

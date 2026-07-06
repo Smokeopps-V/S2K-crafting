@@ -1,20 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Exo+2:wght@400;500;600&display=swap");
 
 :root {
-  --bg: #05080f;
-  --panel: #0f1623;
-  --panel-alt: #111d2f;
-  --border: #243245;
-  --text: #ecf7ff;
-  --muted: #98aec3;
-  --main: #678cab;
-  --main-rgb: 103 140 171;
-  --main-strong: #9fb9d9;
-  --main-soft: rgba(var(--main-rgb), 0.08);
-  --main-glow: rgba(var(--main-rgb), 0.15);
+  --bg: #08020d;
+  --panel: #1e0f34;
+  --panel-alt: #260f40;
+  --border: #4e2e80;
+  --text: #f7f1ff;
+  --muted: #b8a6e1;
+  --main: #a24dff;
+  --main-rgb: 162 77 255;
+  --main-strong: #e7c7ff;
+  --main-soft: rgba(var(--main-rgb), 0.12);
+  --main-glow: rgba(var(--main-rgb), 0.25);
   --accent: var(--main);
-  --accent-strong: var(--main-strong);
-  --warning: #ffc870;
+  --accent-strong: #f2d9ff;
+  --warning: #f7d6ff;
 }
 
 * {
@@ -28,9 +28,9 @@ body {
   color: var(--text);
   background-color: var(--bg);
   background-image:
-    radial-gradient(circle at 15% 15%, rgba(var(--main-rgb), 0.18), transparent 35%),
-    radial-gradient(circle at 85% 5%, rgba(var(--main-rgb), 0.12), transparent 30%),
-    linear-gradient(170deg, #05080f 0%, #090f19 45%, #07111b 100%);
+    radial-gradient(circle at 15% 15%, rgba(var(--main-rgb), 0.2), transparent 28%),
+    radial-gradient(circle at 85% 5%, rgba(var(--main-rgb), 0.15), transparent 20%),
+    linear-gradient(170deg, #09020e 0%, #14021f 45%, #12011b 100%);
   min-height: 100vh;
 }
 
@@ -42,6 +42,21 @@ body {
 
 .hero {
   margin-bottom: 30px;
+}
+
+.hero-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.logo-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: radial-gradient(circle at 35% 35%, rgba(var(--main-rgb), 0.35), transparent 60%);
+  box-shadow: 0 16px 34px rgba(var(--main-rgb), 0.16);
 }
 
 h1 {
@@ -62,7 +77,7 @@ h1 {
 
 .result-count {
   margin: 0;
-  color: var(--accent);
+  color: var(--warning);
   font-size: 14px;
   font-weight: 600;
 }
@@ -81,7 +96,7 @@ select {
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(12, 20, 33, 0.9), rgba(9, 15, 25, 0.9));
+  background: linear-gradient(180deg, rgba(32, 11, 76, 0.92), rgba(22, 8, 55, 0.92));
   color: var(--text);
   font-size: 15px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -96,7 +111,7 @@ select {
   background-image:
     linear-gradient(45deg, transparent 50%, var(--accent-strong) 50%),
     linear-gradient(135deg, var(--accent-strong) 50%, transparent 50%),
-    linear-gradient(180deg, rgba(12, 20, 33, 0.9), rgba(9, 15, 25, 0.9));
+    linear-gradient(180deg, rgba(32, 11, 76, 0.92), rgba(22, 8, 55, 0.92));
   background-position:
     calc(100% - 16px) calc(50% - 3px),
     calc(100% - 11px) calc(50% - 3px),
@@ -119,8 +134,8 @@ select {
   line-height: 1;
   padding: 0 12px;
   border-radius: 8px;
-  border: 1px solid rgba(36, 50, 69, 0.9);
-  background: linear-gradient(180deg, rgba(12, 20, 33, 0.9), rgba(9, 15, 25, 0.9));
+  border: 1px solid rgba(78, 46, 128, 0.9);
+  background: linear-gradient(180deg, rgba(32, 11, 76, 0.93), rgba(22, 8, 55, 0.94));
   color: var(--muted);
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -128,25 +143,25 @@ select {
 
 #blueprintOnlyBtn:hover {
   color: var(--text);
-  background: rgba(var(--main-rgb), 0.08);
+  background: rgba(var(--main-rgb), 0.12);
 }
 
 #blueprintOnlyBtn.is-active {
-  color: #05221f;
-  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #1a031a;
+  background: linear-gradient(135deg, #a24dff, #d8afff);
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 6px 14px rgba(var(--main-rgb), 0.35);
+  box-shadow: 0 6px 18px rgba(var(--main-rgb), 0.25);
 }
 
 /* Native select dropdown list colors (browser support varies by OS/browser). */
 select option,
 select optgroup {
-  background-color: #02070d;
+  background-color: rgba(34, 9, 73, 0.95);
   color: var(--accent-strong);
 }
 
 select option:checked {
-  background: #0b1f2d;
+  background: rgba(70, 32, 117, 0.85);
   color: var(--accent-strong);
 }
 
@@ -163,9 +178,9 @@ select:focus {
   gap: 8px;
   margin-bottom: 26px;
   padding: 7px;
-  border: 1px solid rgba(36, 50, 69, 0.9);
+  border: 1px solid rgba(78, 46, 128, 0.9);
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(12, 20, 33, 0.9), rgba(9, 15, 25, 0.9));
+  background: linear-gradient(180deg, rgba(32, 11, 76, 0.92), rgba(22, 8, 55, 0.92));
 }
 
 .chip {
@@ -187,14 +202,14 @@ select:focus {
 
 .chip:hover {
   color: var(--text);
-  background: rgba(var(--main-rgb), 0.08);
+  background: rgba(var(--main-rgb), 0.12);
 }
 
 .chip.is-active {
-  color: #05221f;
-  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #1a031a;
+  background: linear-gradient(135deg, #a24dff, #d8afff);
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 6px 14px rgba(var(--main-rgb), 0.35);
+  box-shadow: 0 6px 18px rgba(var(--main-rgb), 0.25);
 }
 
 .blueprint-chip {
@@ -207,8 +222,8 @@ select:focus {
   min-height: 34px;
   padding: 0 12px;
   border-radius: 8px;
-  border: 1px solid rgba(36, 50, 69, 0.9);
-  background: linear-gradient(180deg, rgba(12, 20, 33, 0.9), rgba(9, 15, 25, 0.9));
+  border: 1px solid rgba(78, 46, 128, 0.9);
+  background: linear-gradient(180deg, rgba(32, 11, 76, 0.93), rgba(22, 8, 55, 0.94));
   color: var(--muted);
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -220,10 +235,10 @@ select:focus {
 }
 
 .blueprint-chip.is-active {
-  color: #05221f;
-  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #1a031a;
+  background: linear-gradient(135deg, #a24dff, #d8afff);
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 6px 14px rgba(var(--main-rgb), 0.35);
+  box-shadow: 0 6px 18px rgba(var(--main-rgb), 0.25);
 }
 
 .item-list {
@@ -249,7 +264,7 @@ select:focus {
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 14px;
-  background: linear-gradient(145deg, rgba(17, 29, 47, 0.95), rgba(12, 20, 33, 0.95));
+  background: linear-gradient(145deg, rgba(36, 12, 82, 0.94), rgba(20, 7, 56, 0.96));
 }
 
 .panel-head {
@@ -282,8 +297,8 @@ select:focus {
   min-height: 28px;
   padding: 0 10px;
   border-radius: 8px;
-  border: 1px solid rgba(36, 50, 69, 0.9);
-  background: linear-gradient(180deg, rgba(12, 20, 33, 0.9), rgba(9, 15, 25, 0.9));
+  border: 1px solid rgba(78, 46, 128, 0.9);
+  background: linear-gradient(180deg, rgba(30, 12, 65, 0.95), rgba(22, 8, 52, 0.95));
   color: var(--muted);
   font-family: "Exo 2", sans-serif;
   font-size: 12px;
@@ -361,7 +376,7 @@ select:focus {
   padding: 20px;
   border-radius: 15px;
   border: 1px solid var(--border);
-  background: linear-gradient(145deg, rgba(17, 29, 47, 0.95), rgba(12, 20, 33, 0.95));
+  background: linear-gradient(145deg, rgba(30, 10, 65, 0.95), rgba(18, 7, 46, 0.95));
   color: var(--text);
   text-align: left;
   cursor: pointer;
@@ -443,8 +458,8 @@ select:focus {
   overflow-y: auto;
   border-radius: 16px;
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, #111c2c, #0e1726);
-  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.42);
+  background: linear-gradient(180deg, rgba(35, 11, 73, 0.98), rgba(22, 8, 50, 0.98));
+  box-shadow: 0 24px 52px rgba(31, 10, 72, 0.35);
   padding: 28px;
   position: relative;
 }
@@ -469,8 +484,8 @@ select:focus {
   padding: 6px 10px;
   font-size: 12px;
   font-weight: 600;
-  color: #092521;
-  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #1a031a;
+  background: linear-gradient(135deg, #a24dff, #e7c7ff);
 }
 
 .materials-title {
@@ -507,8 +522,8 @@ select:focus {
   gap: 8px;
   padding: 7px 10px;
   border-radius: 8px;
-  border: 1px solid rgba(152, 174, 195, 0.2);
-  background: rgba(9, 15, 25, 0.55);
+  border: 1px solid rgba(150, 120, 255, 0.18);
+  background: rgba(50, 13, 89, 0.55);
 }
 
 .popup-total-name {
@@ -557,7 +572,7 @@ select:focus {
   min-height: 34px;
   border-radius: 10px;
   border: 1px solid var(--border);
-  background: linear-gradient(145deg, rgba(17, 29, 47, 0.95), rgba(12, 20, 33, 0.95));
+  background: linear-gradient(145deg, rgba(29, 9, 71, 0.95), rgba(22, 6, 49, 0.95));
   color: var(--text);
   font-family: "Exo 2", sans-serif;
   font-size: 12px;
@@ -583,7 +598,7 @@ select:focus {
   margin: 8px 0 0;
   min-height: 18px;
   font-size: 12px;
-  color: var(--accent);
+  color: var(--warning);
 }
 
 .material-row {

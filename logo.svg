@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="MDNT Crafting logo">
+  <defs>
+    <radialGradient id="grad" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#d8afff" />
+      <stop offset="100%" stop-color="#3e0d7f" />
+    </radialGradient>
+  </defs>
+  <rect width="240" height="240" rx="32" fill="#0a0214" />
+  <path d="M60 60 C80 30 160 30 180 60 C200 90 170 140 120 190 C70 140 40 90 60 60 Z" fill="url(#grad)" opacity="0.95" />
+  <path d="M80 130 C95 120 145 120 160 130" fill="none" stroke="#f2d9ff" stroke-width="14" stroke-linecap="round" />
+  <path d="M92 100 L112 82 M148 100 L128 82" fill="none" stroke="#f2d9ff" stroke-width="14" stroke-linecap="round" />
+  <circle cx="120" cy="90" r="10" fill="#fff" opacity="0.9" />
+</svg>
