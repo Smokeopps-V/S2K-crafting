@@ -1389,7 +1389,7 @@ const CONFIG_ITEMS = [
   {
     name: "Gold Weapon Skin",
     category: "skins",
-    levelRequired: 0,
+    levelRequired: 60,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 6000,
@@ -1402,7 +1402,7 @@ const CONFIG_ITEMS = [
   {
     name: "Orange Weapon Skin",
     category: "skins",
-    levelRequired: 0,
+    levelRequired: 60,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 6000,
@@ -1415,7 +1415,7 @@ const CONFIG_ITEMS = [
   {
     name: "Pink Weapon Skin",
     category: "skins",
-    levelRequired: 0,
+    levelRequired: 60,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 6000,
@@ -1428,7 +1428,7 @@ const CONFIG_ITEMS = [
   {
     name: "Seisanta Weapon Skin",
     category: "skins",
-    levelRequired: 0,
+    levelRequired: 60,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 6000,
@@ -1441,7 +1441,7 @@ const CONFIG_ITEMS = [
   {
     name: "Persona Weapon Skin",
     category: "skins",
-    levelRequired: 0,
+    levelRequired: 60,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 6000,
@@ -1454,7 +1454,7 @@ const CONFIG_ITEMS = [
   {
     name: "Boom Weapon Skin",
     category: "skins",
-    levelRequired: 0,
+    levelRequired: 60,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 6000,
@@ -1467,7 +1467,7 @@ const CONFIG_ITEMS = [
   {
     name: "USA Weapon Skin",
     category: "skins",
-    levelRequired: 0,
+    levelRequired: 60,
     blueprintRequired: false,
     xp: 1,
     stopLevel: 6000,
