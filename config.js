@@ -94,10 +94,10 @@ const CONFIG_ITEMS = [
     xp: 20,
     stopLevel: 30,
     materials: {
-      plastic: 55,
-      scrap: 205,
-      rubber: 85,
       steel: 180,
+      scrap: 305,
+      rubber: 85,
+      plastic: 55,
       titanium: 40
     }
   },
@@ -109,10 +109,10 @@ const CONFIG_ITEMS = [
     xp: 20,
     stopLevel: 30,
     materials: {
-      plastic: 55,
-      scrap: 205,
-      rubber: 85,
       steel: 180,
+      scrap: 305,
+      rubber: 85,
+      plastic: 55,
       titanium: 40
     }
   },
@@ -128,6 +128,21 @@ const CONFIG_ITEMS = [
       rubber: 55,
       steel: 150,
       titanium: 15
+    }
+  },
+  {
+    name: "Rifle Suppressor",
+    category: "attachments",
+    levelRequired: 35,
+    blueprintRequired: true,
+    xp: 20,
+    stopLevel: 30,
+    materials: {
+      steel: 270,
+      scrap: 305,
+      rubber: 115,
+      plastic: 75,
+      titanium: 40
     }
   },
   {
@@ -159,6 +174,20 @@ const CONFIG_ITEMS = [
     }
   },
   {
+    name: "Extended Pistol Clip",
+    category: "attachments",
+    levelRequired: 22,
+    blueprintRequired: true,
+    xp: 10,
+    stopLevel: 2800,
+    materials: {
+      scrap: 75,
+      titanium: 10,
+      plastic: 40,
+      aluminium: 75
+    }
+  },
+  {
     name: "Ext Shotgun Mag",
     category: "attachments",
     levelRequired: 32,
@@ -169,6 +198,34 @@ const CONFIG_ITEMS = [
       plastic: 115,
       titanium: 10,
       scrap: 150,
+      aluminium: 150
+    }
+  },
+  {
+    name: "Extended Rifle Mag",
+    category: "attachments",
+    levelRequired: 35,
+    blueprintRequired: true,
+    xp: 15,
+    stopLevel: 6000,
+    materials: {
+      scrap: 150,
+      titanium: 15,
+      plastic: 115,
+      aluminium: 150
+    }
+  },
+  {
+    name: "Extended Shotgun Mag",
+    category: "attachments",
+    levelRequired: 35,
+    blueprintRequired: true,
+    xp: 15,
+    stopLevel: 6000,
+    materials: {
+      scrap: 150,
+      titanium: 10,
+      plastic: 115,
       aluminium: 150
     }
   },
@@ -198,6 +255,34 @@ const CONFIG_ITEMS = [
       titanium: 10,
       scrap: 150,
       aluminium: 150
+    }
+  },
+  {
+    name: "SMG Drum Mag",
+    category: "attachments",
+    levelRequired: 25,
+    blueprintRequired: true,
+    xp: 15,
+    stopLevel: 6000,
+    materials: {
+      scrap: 150,
+      titanium: 10,
+      plastic: 115,
+      aluminium: 150
+    }
+  },
+  {
+    name: "Rifle Drum Mag",
+    category: "attachments",
+    levelRequired: 35,
+    blueprintRequired: true,
+    xp: 20,
+    stopLevel: 6000,
+    materials: {
+      scrap: 225,
+      titanium: 15,
+      plastic: 225,
+      aluminium: 225
     }
   },
   {
@@ -253,14 +338,16 @@ const CONFIG_ITEMS = [
     xp: 15,
     stopLevel: 95,
     materials: {
+      metalSpring: 1,
       pistolSlide: 1,
-      gunTrigger: 1,
+      steelPlate: 4,
       pistolClip: 1,
-      pistolGrip: 1,
       plastic: 370,
       aluminium: 30,
       scrap: 15,
-      titanium: 150
+      titanium: 150,
+      gunTrigger: 1,
+      pistolGrip: 1
     }
   },
   {
@@ -338,13 +425,11 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 92,
     materials: {
-      metalSpring: 1,
-      boltAssembly: 1,
-      gunTrigger: 1,
-      smgExtractor: 1,
       smgBarrel: 1,
+      boltAssembly: 1,
+      steelPlate: 4,
       smgMag: 1,
-      titanium: 150
+      metalSpring: 1
     }
   },
   {
@@ -392,16 +477,12 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 6000,
     materials: {
-      smgExtractor: 1,
       boltAssembly: 1,
+      steelPlate: 4,
       smgMag: 1,
-      gunTrigger: 1,
       metalSpring: 1,
-      smgBarrel: 1,
-      scrap: 55,
-      plastic: 370,
-      aluminium: 100,
-      titanium: 100
+      titanium: 100,
+      gunTrigger: 1
     }
   },
   {
@@ -761,6 +842,9 @@ const CONFIG_ITEMS = [
     stopLevel: 6000,
     materials: {
       wire: 230,
+      powerSupply: 1,
+      controlChip: 1,
+      circuitBoard: 1,
       electronics: 230,
       techShavings: 25
     }
@@ -869,10 +953,13 @@ const CONFIG_ITEMS = [
     stopLevel: 6000,
     materials: {
       steel: 75,
-      wire: 25,
+      rubber: 100,
+      controlChip: 1,
+      powerSupply: 1,
       scrap: 250,
+      wire: 25,
       electronics: 250,
-      rubber: 100
+      circuitBoard: 1
     }
   },
   {
@@ -1039,14 +1126,11 @@ const CONFIG_ITEMS = [
     xp: 15,
     stopLevel: 5500,
     materials: {
-      techShavings: 45,
-      titanium: 75,
       circuitBoard: 3,
+      wire: 265,
       controlChip: 3,
       powerSupply: 3,
-      plastic: 230,
-      electronics: 530,
-      wire: 265
+      plastic: 230
     }
   },
   {
@@ -1286,6 +1370,506 @@ const CONFIG_ITEMS = [
       rubber: 500,
       steel: 500,
       plastic: 500
+    }
+  },
+  {
+    name: "Rifle Grip Component",
+    category: "attachments",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      plastic: 115,
+      scrap: 10,
+      electronics: 75,
+      glass: 40
+    }
+  },
+  {
+    name: "Gold Weapon Skin",
+    category: "skins",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      copperOre: 6,
+      tinOre: 3,
+      zincOre: 6
+    }
+  },
+  {
+    name: "Orange Weapon Skin",
+    category: "skins",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      copperOre: 6,
+      tinOre: 2,
+      zincOre: 6
+    }
+  },
+  {
+    name: "Pink Weapon Skin",
+    category: "skins",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      copperOre: 6,
+      tinOre: 2,
+      zincOre: 6
+    }
+  },
+  {
+    name: "Seisanta Weapon Skin",
+    category: "skins",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      copperOre: 6,
+      tinOre: 3,
+      zincOre: 6
+    }
+  },
+  {
+    name: "Persona Weapon Skin",
+    category: "skins",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      copperOre: 6,
+      tinOre: 3,
+      zincOre: 6
+    }
+  },
+  {
+    name: "Boom Weapon Skin",
+    category: "skins",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      copperOre: 6,
+      tinOre: 3,
+      zincOre: 6
+    }
+  },
+  {
+    name: "USA Weapon Skin",
+    category: "skins",
+    levelRequired: 0,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      copperOre: 6,
+      tinOre: 3,
+      zincOre: 6
+    }
+  },
+  {
+    name: "Combat PDW",
+    category: "weapons",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 6000,
+    materials: {
+      gunTrigger: 1,
+      boltAssembly: 1,
+      smgBarrel: 1,
+      smgMag: 1,
+      smgExtractor: 1
+    }
+  },
+  {
+    name: "Tommy Gun",
+    category: "weapons",
+    levelRequired: 35,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 8750,
+    materials: {
+      boltAssembly: 1,
+      titanium: 135,
+      smgMag: 1,
+      gunTrigger: 1,
+      smgBarrel: 1,
+      metalSpring: 1,
+      planks: 5,
+      smgExtractor: 1
+    }
+  },
+  {
+    name: "Double Barrel Shotgun",
+    category: "weapons",
+    levelRequired: 50,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 6000,
+    materials: {
+      steelPlate: 2,
+      metalSpring: 1,
+      titanium: 120,
+      gunTrigger: 1,
+      boltAssembly: 1
+    }
+  },
+  {
+    name: "Midnight Rifle",
+    category: "weapons",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      rifleGrip: 1,
+      steelPlate: 8,
+      metalSpring: 1,
+      titanium: 150,
+      gunTrigger: 1
+    }
+  },
+  {
+    name: "Black Ice Rifle",
+    category: "weapons",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      rifleStockTube: 1,
+      boltAssembly: 1,
+      rifleReceiver: 1,
+      rifleStock: 1,
+      rifleBarrel: 1
+    }
+  },
+  {
+    name: "Demon Rifle",
+    category: "weapons",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      boltAssembly: 1,
+      gunTrigger: 1,
+      metalSpring: 1,
+      steelPlate: 8,
+      titanium: 150
+    }
+  },
+  {
+    name: "Toxic Rifle",
+    category: "weapons",
+    levelRequired: 55,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      boltAssembly: 1,
+      gunTrigger: 1,
+      metalSpring: 1,
+      steelPlate: 8,
+      titanium: 150
+    }
+  },
+  {
+    name: "Tec 9",
+    category: "weapons",
+    levelRequired: 25,
+    blueprintRequired: true,
+    xp: 15,
+    stopLevel: 95,
+    materials: {
+      metalSpring: 1,
+      pistolSlide: 1,
+      steelPlate: 8,
+      pistolClip: 1,
+      plastic: 370,
+      aluminium: 30,
+      scrap: 15,
+      titanium: 150,
+      gunTrigger: 1,
+      pistolGrip: 1
+    }
+  },
+  {
+    name: "UMP",
+    category: "weapons",
+    levelRequired: 45,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 92,
+    materials: {
+      metalSpring: 1,
+      boltAssembly: 1,
+      gunTrigger: 1,
+      smgExtractor: 1,
+      smgBarrel: 1,
+      smgMag: 1,
+      titanium: 190
+    }
+  },
+  {
+    name: "Steel Plate",
+    category: "materials",
+    levelRequired: 20,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      steelBar: 50
+    }
+  },
+  {
+    name: "Rifle Grip",
+    category: "materials",
+    levelRequired: 30,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      plastic: 150,
+      titanium: 15,
+      scrap: 50
+    }
+  },
+  {
+    name: "Rifle Stock",
+    category: "materials",
+    levelRequired: 30,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      plastic: 150,
+      titanium: 15,
+      scrap: 50
+    }
+  },
+  {
+    name: "Rifle Receiver",
+    category: "materials",
+    levelRequired: 35,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      steel: 75,
+      titanium: 25,
+      scrap: 75
+    }
+  },
+  {
+    name: "Rifle Barrel",
+    category: "materials",
+    levelRequired: 35,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      steel: 75,
+      titanium: 25,
+      scrap: 50
+    }
+  },
+  {
+    name: "Shotgun Foreend",
+    category: "materials",
+    levelRequired: 40,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      plastic: 100,
+      titanium: 20,
+      scrap: 75
+    }
+  },
+  {
+    name: "Shotgun Barrel",
+    category: "materials",
+    levelRequired: 40,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      steel: 75,
+      titanium: 25,
+      scrap: 75
+    }
+  },
+  {
+    name: "Shotgun Stock",
+    category: "materials",
+    levelRequired: 40,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      plastic: 100,
+      titanium: 20,
+      scrap: 75
+    }
+  },
+  {
+    name: "Shotgun Trigger",
+    category: "materials",
+    levelRequired: 40,
+    blueprintRequired: false,
+    xp: 1,
+    stopLevel: 6000,
+    materials: {
+      steel: 50,
+      titanium: 15,
+      scrap: 30
+    }
+  },
+  {
+    name: "AS-VAL",
+    category: "weapons",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      rifleGrip: 1,
+      steelPlate: 4,
+      metalSpring: 1,
+      titanium: 225,
+      gunTrigger: 1
+    }
+  },
+  {
+    name: "Scorpion",
+    category: "weapons",
+    levelRequired: 45,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 6000,
+    materials: {
+      boltAssembly: 1,
+      plastic: 620,
+      smgBarrel: 1,
+      smgMag: 1,
+      smgExtractor: 1
+    }
+  },
+  {
+    name: "Sharption",
+    category: "weapons",
+    levelRequired: 55,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      steelPlate: 4,
+      metalSpring: 1,
+      titanium: 100,
+      gunTrigger: 1,
+      boltAssembly: 1
+    }
+  },
+  {
+    name: "Gepardi",
+    category: "weapons",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      rifleGrip: 1,
+      steelPlate: 4,
+      metalSpring: 1,
+      titanium: 225,
+      gunTrigger: 1
+    }
+  },
+  {
+    name: "Uzi",
+    category: "weapons",
+    levelRequired: 50,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 6000,
+    materials: {
+      smgMag: 1,
+      metalSpring: 1,
+      titanium: 100,
+      gunTrigger: 1,
+      smgExtractor: 1
+    }
+  },
+  {
+    name: "AKS-74U",
+    category: "weapons",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      rifleGrip: 1,
+      steelPlate: 4,
+      metalSpring: 1,
+      titanium: 225,
+      gunTrigger: 1
+    }
+  },
+  {
+    name: "AK-74",
+    category: "weapons",
+    levelRequired: 65,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      akBarrelPin: 1,
+      akPistonPin: 1,
+      akMag: 1,
+      titanium: 300,
+      akBolt: 1
+    }
+  },
+  {
+    name: "HK UMP",
+    category: "weapons",
+    levelRequired: 55,
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 6000,
+    materials: {
+      smgMag: 1,
+      metalSpring: 1,
+      titanium: 100,
+      gunTrigger: 1,
+      smgExtractor: 1
+    }
+  },
+  {
+    name: "Groza",
+    category: "weapons",
+    levelRequired: 60,
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 6000,
+    materials: {
+      rifleGrip: 1,
+      steelPlate: 4,
+      metalSpring: 1,
+      titanium: 225,
+      gunTrigger: 1
     }
   }
 ];
