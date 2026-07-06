@@ -340,7 +340,7 @@ const CONFIG_ITEMS = [
     materials: {
       metalSpring: 1,
       pistolSlide: 1,
-      steelPlate: 4,
+      steelPlate: 2,
       pistolClip: 1,
       plastic: 370,
       aluminium: 30,
@@ -1534,7 +1534,7 @@ const CONFIG_ITEMS = [
     stopLevel: 6000,
     materials: {
       rifleGrip: 1,
-      steelPlate: 8,
+      steelPlate: 6,
       metalSpring: 1,
       titanium: 360,
       gunTrigger: 1
@@ -1567,7 +1567,7 @@ const CONFIG_ITEMS = [
       boltAssembly: 1,
       gunTrigger: 1,
       metalSpring: 1,
-      steelPlate: 8,
+      steelPlate: 6,
       titanium: 360
     }
   },
@@ -1582,7 +1582,7 @@ const CONFIG_ITEMS = [
       boltAssembly: 1,
       gunTrigger: 1,
       metalSpring: 1,
-      steelPlate: 8,
+      steelPlate: 6,
       titanium: 360
     }
   },
@@ -1596,7 +1596,7 @@ const CONFIG_ITEMS = [
     materials: {
       metalSpring: 1,
       pistolSlide: 1,
-      steelPlate: 8,
+      steelPlate: 2,
       pistolClip: 1,
       plastic: 370,
       aluminium: 30,
@@ -1747,7 +1747,7 @@ const CONFIG_ITEMS = [
     stopLevel: 6000,
     materials: {
       rifleGrip: 1,
-      steelPlate: 4,
+      steelPlate: 6,
       metalSpring: 1,
       titanium: 375,
       gunTrigger: 1
@@ -1792,7 +1792,7 @@ const CONFIG_ITEMS = [
     stopLevel: 6000,
     materials: {
       rifleGrip: 1,
-      steelPlate: 4,
+      steelPlate: 6,
       metalSpring: 1,
       titanium: 225,
       gunTrigger: 1
@@ -1822,7 +1822,7 @@ const CONFIG_ITEMS = [
     stopLevel: 6000,
     materials: {
       rifleGrip: 1,
-      steelPlate: 4,
+      steelPlate: 6,
       metalSpring: 1,
       titanium: 225,
       gunTrigger: 1
@@ -1867,7 +1867,7 @@ const CONFIG_ITEMS = [
     stopLevel: 6000,
     materials: {
       rifleGrip: 1,
-      steelPlate: 4,
+      steelPlate: 6,
       metalSpring: 1,
       titanium: 225,
       gunTrigger: 1
