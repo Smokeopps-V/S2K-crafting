@@ -1677,23 +1677,23 @@ const CONFIG_ITEMS = [
       gunTrigger: 1
     }
   },
-  {
+ {
     name: "AK-74",
     category: "weapons",
-    levelRequired: 65,
+    levelRequired: 60, 
     blueprintRequired: true,
-    xp: 50,
-    stopLevel: 6000,
+    xp: 25,
+    stopLevel: 14500,
     materials: {
-      boltAssembly: 1,
-      metalSpring: 1,
-      gunTrigger: 1,
       akBarrelPin: 1,
       akPistonPin: 1,
-      akMag: 1,
+      titanium: 295,
       steelPlate: 6,
-      titanium: 300,
-      akBolt: 1
+      akReceiverCover: 1,
+      akBarrel: 1,
+      akBolt: 1,
+      akMag: 1,
+      akStock: 1
     }
   },
   {
@@ -1713,6 +1713,26 @@ const CONFIG_ITEMS = [
       titanium: 225,
       gunTrigger: 1,
       steelPlate: 6
+    }
+  },
+  {
+    name: "Advanced Rifle",
+    category: "weapons",
+    levelRequired: 60, 
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 12000,
+    materials: {
+      gunTrigger: 1,
+      rifleReceiver: 1,
+      boltAssembly: 1,
+      steelPlate: 6,
+      rifleBarrel: 1,
+      metalSpring: 1,
+      rifleStock: 1,
+      rifleGrip: 1,
+      titanium: 300,
+      rifleStockTube: 1
     }
   }
 ];
