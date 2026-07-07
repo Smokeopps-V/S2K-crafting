@@ -408,8 +408,8 @@ const CONFIG_ITEMS = [
     xp: 20,
     stopLevel: 85,
     materials: {
-      metalSpring: 1,
       boltAssembly: 1,
+      metalSpring: 1,
       gunTrigger: 1,
       smgExtractor: 1,
       smgBarrel: 1,
@@ -425,11 +425,12 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 92,
     materials: {
-      smgBarrel: 1,
       boltAssembly: 1,
-      steelPlate: 4,
+      metalSpring: 1,
+      gunTrigger: 1,
+      smgBarrel: 1,
       smgMag: 1,
-      metalSpring: 1
+      steelPlate: 4
     }
   },
   {
@@ -440,12 +441,13 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 92,
     materials: {
-      metalSpring: 1,
       boltAssembly: 1,
+      metalSpring: 1,
       gunTrigger: 1,
       smgExtractor: 1,
       smgBarrel: 1,
       smgMag: 1,
+      steelPlate: 4,
       titanium: 190
     }
   },
@@ -457,12 +459,13 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 6000,
     materials: {
-      smgBarrel: 1,
       boltAssembly: 1,
       metalSpring: 1,
+      gunTrigger: 1,
+      smgBarrel: 1,
       smgMag: 1,
       smgExtractor: 1,
-      gunTrigger: 1,
+      steelPlate: 4,
       scrap: 55,
       plastic: 370,
       aluminium: 100,
@@ -478,11 +481,11 @@ const CONFIG_ITEMS = [
     stopLevel: 6000,
     materials: {
       boltAssembly: 1,
+      metalSpring: 1,
+      gunTrigger: 1,
       steelPlate: 4,
       smgMag: 1,
-      metalSpring: 1,
-      titanium: 100,
-      gunTrigger: 1
+      titanium: 100
     }
   },
   {
@@ -493,12 +496,12 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 6000,
     materials: {
-      smgBarrel: 1,
       boltAssembly: 1,
       metalSpring: 1,
+      gunTrigger: 1,
+      smgBarrel: 1,
       smgMag: 1,
       smgExtractor: 1,
-      gunTrigger: 1,
       plastic: 620,
       scrap: 55,
       aluminium: 100,
@@ -516,8 +519,11 @@ const CONFIG_ITEMS = [
       metalSpring: 1,
       boltAssembly: 1,
       gunTrigger: 1,
-      titanium: 120,
-      shotgunParts: 1
+      shotgunForeend: 1,
+      shotgunBarrel: 1,
+      shotgunStock: 1,
+      shotgunTrigger: 1,
+      titanium: 120
     }
   },
   {
@@ -531,8 +537,11 @@ const CONFIG_ITEMS = [
       metalSpring: 1,
       boltAssembly: 1,
       gunTrigger: 1,
-      titanium: 205,
-      shotgunParts: 1
+      shotgunForeend: 1,
+      shotgunBarrel: 1,
+      shotgunStock: 1,
+      shotgunTrigger: 1,
+      titanium: 205
     }
   },
   {
@@ -1225,6 +1234,9 @@ const CONFIG_ITEMS = [
     stopLevel: 10000,
     materials: {
       akMag: 1,
+      boltAssembly: 1,
+      metalSpring: 1,
+      gunTrigger: 1,
       titanium: 350,
       akBolt: 1,
       akBarrelPin: 1,
@@ -1485,29 +1497,14 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 6000,
     materials: {
-      gunTrigger: 1,
       boltAssembly: 1,
-      smgBarrel: 1,
-      smgMag: 1,
-      smgExtractor: 1
-    }
-  },
-  {
-    name: "Tommy Gun",
-    category: "weapons",
-    levelRequired: 35,
-    blueprintRequired: true,
-    xp: 25,
-    stopLevel: 8750,
-    materials: {
-      boltAssembly: 1,
-      titanium: 135,
-      smgMag: 1,
-      gunTrigger: 1,
-      smgBarrel: 1,
       metalSpring: 1,
-      planks: 5,
-      smgExtractor: 1
+      gunTrigger: 1,
+      smgBarrel: 1,
+      smgMag: 1,
+      titanium: 190,
+      smgExtractor: 1,
+      steelPlate: 6,
     }
   },
   {
@@ -1518,7 +1515,7 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 6000,
     materials: {
-      steelPlate: 2,
+      steelPlate: 4,
       metalSpring: 1,
       titanium: 120,
       gunTrigger: 1,
@@ -1533,11 +1530,14 @@ const CONFIG_ITEMS = [
     xp: 50,
     stopLevel: 6000,
     materials: {
-      rifleGrip: 1,
-      steelPlate: 6,
+      rifleStockTube: 1,
+      boltAssembly: 1,
+      rifleReceiver: 1,
+      rifleStock: 1,
+      rifleBarrel: 1,
       metalSpring: 1,
-      titanium: 360,
-      gunTrigger: 1
+      gunTrigger: 1,
+      titanium: 360
     }
   },
   {
@@ -1553,6 +1553,8 @@ const CONFIG_ITEMS = [
       rifleReceiver: 1,
       rifleStock: 1,
       rifleBarrel: 1,
+      metalSpring: 1,
+      gunTrigger: 1,
       titanium: 360
     }
   },
@@ -1564,10 +1566,13 @@ const CONFIG_ITEMS = [
     xp: 50,
     stopLevel: 6000,
     materials: {
+      rifleStockTube: 1,
       boltAssembly: 1,
-      gunTrigger: 1,
+      rifleReceiver: 1,
+      rifleStock: 1,
+      rifleBarrel: 1,
       metalSpring: 1,
-      steelPlate: 6,
+      gunTrigger: 1,
       titanium: 360
     }
   },
@@ -1579,48 +1584,14 @@ const CONFIG_ITEMS = [
     xp: 50,
     stopLevel: 6000,
     materials: {
+      rifleStockTube: 1,
       boltAssembly: 1,
-      gunTrigger: 1,
+      rifleReceiver: 1,
+      rifleStock: 1,
+      rifleBarrel: 1,
       metalSpring: 1,
-      steelPlate: 6,
+      gunTrigger: 1,
       titanium: 360
-    }
-  },
-  {
-    name: "Tec 9",
-    category: "weapons",
-    levelRequired: 25,
-    blueprintRequired: true,
-    xp: 15,
-    stopLevel: 95,
-    materials: {
-      metalSpring: 1,
-      pistolSlide: 1,
-      steelPlate: 2,
-      pistolClip: 1,
-      plastic: 370,
-      aluminium: 30,
-      scrap: 15,
-      titanium: 150,
-      gunTrigger: 1,
-      pistolGrip: 1
-    }
-  },
-  {
-    name: "UMP",
-    category: "weapons",
-    levelRequired: 45,
-    blueprintRequired: true,
-    xp: 25,
-    stopLevel: 92,
-    materials: {
-      metalSpring: 1,
-      boltAssembly: 1,
-      gunTrigger: 1,
-      smgExtractor: 1,
-      smgBarrel: 1,
-      smgMag: 1,
-      titanium: 190
     }
   },
   {
@@ -1635,110 +1606,6 @@ const CONFIG_ITEMS = [
     }
   },
   {
-    name: "Rifle Grip",
-    category: "materials",
-    levelRequired: 30,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      plastic: 150,
-      titanium: 15,
-      scrap: 50
-    }
-  },
-  {
-    name: "Rifle Stock",
-    category: "materials",
-    levelRequired: 30,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      plastic: 150,
-      titanium: 15,
-      scrap: 50
-    }
-  },
-  {
-    name: "Rifle Receiver",
-    category: "materials",
-    levelRequired: 35,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      steel: 75,
-      titanium: 25,
-      scrap: 75
-    }
-  },
-  {
-    name: "Rifle Barrel",
-    category: "materials",
-    levelRequired: 35,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      steel: 75,
-      titanium: 25,
-      scrap: 50
-    }
-  },
-  {
-    name: "Shotgun Foreend",
-    category: "materials",
-    levelRequired: 40,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      plastic: 100,
-      titanium: 20,
-      scrap: 75
-    }
-  },
-  {
-    name: "Shotgun Barrel",
-    category: "materials",
-    levelRequired: 40,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      steel: 75,
-      titanium: 25,
-      scrap: 75
-    }
-  },
-  {
-    name: "Shotgun Stock",
-    category: "materials",
-    levelRequired: 40,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      plastic: 100,
-      titanium: 20,
-      scrap: 75
-    }
-  },
-  {
-    name: "Shotgun Trigger",
-    category: "materials",
-    levelRequired: 40,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      steel: 50,
-      titanium: 15,
-      scrap: 30
-    }
-  },
-  {
     name: "AS-VAL",
     category: "weapons",
     levelRequired: 60,
@@ -1746,56 +1613,33 @@ const CONFIG_ITEMS = [
     xp: 50,
     stopLevel: 6000,
     materials: {
-      rifleGrip: 1,
-      steelPlate: 6,
-      metalSpring: 1,
-      titanium: 375,
-      gunTrigger: 1
-    }
-  },
-  {
-    name: "Scorpion",
-    category: "weapons",
-    levelRequired: 45,
-    blueprintRequired: true,
-    xp: 25,
-    stopLevel: 6000,
-    materials: {
+      rifleStockTube: 1,
       boltAssembly: 1,
-      plastic: 620,
-      smgBarrel: 1,
-      smgMag: 1,
-      smgExtractor: 1
-    }
-  },
-  {
-    name: "Sharption",
-    category: "weapons",
-    levelRequired: 55,
-    blueprintRequired: true,
-    xp: 50,
-    stopLevel: 6000,
-    materials: {
-      steelPlate: 4,
+      rifleReceiver: 1,
+      rifleStock: 1,
+      rifleBarrel: 1,
       metalSpring: 1,
-      titanium: 100,
       gunTrigger: 1,
-      boltAssembly: 1
+      steelPlate: 6,
+      titanium: 375
     }
   },
   {
-    name: "Gepardi",
+    name: "Gepard",
     category: "weapons",
     levelRequired: 60,
     blueprintRequired: true,
     xp: 50,
     stopLevel: 6000,
     materials: {
-      rifleGrip: 1,
-      steelPlate: 6,
+      rifleStockTube: 1,
+      boltAssembly: 1,
+      rifleReceiver: 1,
+      rifleStock: 1,
+      rifleBarrel: 1,
       metalSpring: 1,
-      titanium: 225,
-      gunTrigger: 1
+      gunTrigger: 1,
+      titanium: 225
     }
   },
   {
@@ -1806,11 +1650,12 @@ const CONFIG_ITEMS = [
     xp: 25,
     stopLevel: 6000,
     materials: {
-      smgMag: 1,
+      boltAssembly: 1,
       metalSpring: 1,
-      titanium: 100,
       gunTrigger: 1,
-      smgExtractor: 1
+      smgMag: 1,
+      smgExtractor: 1,
+      titanium: 100
     }
   },
   {
@@ -1821,7 +1666,11 @@ const CONFIG_ITEMS = [
     xp: 50,
     stopLevel: 6000,
     materials: {
-      rifleGrip: 1,
+      rifleStockTube: 1,
+      boltAssembly: 1,
+      rifleReceiver: 1,
+      rifleStock: 1,
+      rifleBarrel: 1,
       steelPlate: 6,
       metalSpring: 1,
       titanium: 225,
@@ -1836,26 +1685,15 @@ const CONFIG_ITEMS = [
     xp: 50,
     stopLevel: 6000,
     materials: {
+      boltAssembly: 1,
+      metalSpring: 1,
+      gunTrigger: 1,
       akBarrelPin: 1,
       akPistonPin: 1,
       akMag: 1,
+      steelPlate: 6,
       titanium: 300,
       akBolt: 1
-    }
-  },
-  {
-    name: "HK UMP",
-    category: "weapons",
-    levelRequired: 55,
-    blueprintRequired: true,
-    xp: 25,
-    stopLevel: 6000,
-    materials: {
-      smgMag: 1,
-      metalSpring: 1,
-      titanium: 100,
-      gunTrigger: 1,
-      smgExtractor: 1
     }
   },
   {
@@ -1866,11 +1704,15 @@ const CONFIG_ITEMS = [
     xp: 50,
     stopLevel: 6000,
     materials: {
-      rifleGrip: 1,
-      steelPlate: 6,
+      rifleStockTube: 1,
+      boltAssembly: 1,
+      rifleReceiver: 1,
+      rifleStock: 1,
+      rifleBarrel: 1,
       metalSpring: 1,
       titanium: 225,
-      gunTrigger: 1
+      gunTrigger: 1,
+      steelPlate: 6
     }
   }
 ];
