@@ -1734,6 +1734,20 @@ const CONFIG_ITEMS = [
       titanium: 300,
       rifleStockTube: 1
     }
+  }, 
+  {
+    name: "Rifle Grip Attachment",
+    category: "Attachments",
+    levelRequired: 15,
+    blueprintRequired: true,
+    xp: 5,
+    stopLevel: 2000,
+    materials: {
+      plastic: 115,
+      scrap: 10,
+      electronics: 75,
+      glass: 40
+    }
   }
 ];
 
