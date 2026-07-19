@@ -1385,20 +1385,6 @@ const CONFIG_ITEMS = [
     }
   },
   {
-    name: "Rifle Grip Component",
-    category: "attachments",
-    levelRequired: 0,
-    blueprintRequired: false,
-    xp: 1,
-    stopLevel: 6000,
-    materials: {
-      plastic: 115,
-      scrap: 10,
-      electronics: 75,
-      glass: 40
-    }
-  },
-  {
     name: "Gold Weapon Skin",
     category: "skins",
     levelRequired: 60,
@@ -1734,7 +1720,47 @@ const CONFIG_ITEMS = [
       titanium: 300,
       rifleStockTube: 1
     }
-  }, 
+  },
+    {
+    name: "M4 Carbine Rifle",
+    category: "weapons",
+    levelRequired: 60, 
+    blueprintRequired: true,
+    xp: 50,
+    stopLevel: 12000,
+    materials: {
+      gunTrigger: 1,
+      rifleReceiver: 1,
+      boltAssembly: 1,
+      steelPlate: 6,
+      rifleBarrel: 1,
+      metalSpring: 1,
+      rifleStock: 1,
+      rifleGrip: 1,
+      titanium: 375,
+      rifleStockTube: 1
+    }
+  },
+      {
+    name: "Draggunov",
+    category: "weapons",
+    levelRequired: 60, 
+    blueprintRequired: true,
+    xp: 25,
+    stopLevel: 12000,
+    materials: {
+      gunTrigger: 1,
+      rifleReceiver: 1,
+      boltAssembly: 1,
+      steelPlate: 6,
+      rifleBarrel: 1,
+      metalSpring: 1,
+      rifleStock: 1,
+      rifleGrip: 1,
+      titanium: 525,
+      rifleStockTube: 1
+    }
+  },
   {
     name: "Rifle Grip Attachment",
     category: "Attachments",
