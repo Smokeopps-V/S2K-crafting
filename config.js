@@ -1139,7 +1139,7 @@ const CONFIG_ITEMS = [
       wire: 265,
       controlChip: 3,
       powerSupply: 3,
-      plastic: 230
+      plastic: 230,
       techShavings: 25
     }
   },
